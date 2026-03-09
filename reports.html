@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Latest Reports - Stay updated with our newest market research publications.">
+  <title>Latest Reports | Market Intelligence & Consulting</title>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Outfit:wght@400;500;600;700&display=swap"
+    rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    /* Styling specifically for the placeholder reports list */
+    .report-card-wide {
+      background: var(--bg-color);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-lg);
+      padding: 2rem;
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+      transition: var(--transition);
+      margin-bottom: 1.5rem;
+    }
+
+    .report-card-wide:hover {
+      border-color: var(--accent-color);
+      box-shadow: var(--shadow-md);
+    }
+
+    .report-meta {
+      display: flex;
+      gap: 1rem;
+      font-size: 0.875rem;
+      color: var(--text-light);
+      align-items: center;
+    }
+
+    .report-tag {
+      background: var(--accent-light);
+      color: var(--accent-color);
+      padding: 0.25rem 0.75rem;
+      border-radius: 9999px;
+      font-weight: 600;
+      font-size: 0.75rem;
+      text-transform: uppercase;
+    }
+
+    @media (min-width: 768px) {
+      .report-card-wide {
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-between;
+      }
+
+      .report-content {
+        max-width: 70%;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- Header & Navigation -->
+  <header class="header">
+    <div class="container nav-container">
+      <a href="index.html" class="logo">
+        <span class="text-accent" style="font-size: 1.5rem; font-weight: 800;">strativainte</span>lligence
+      </a>
+      <button class="nav-toggle" id="navToggle" aria-label="Toggle Navigation">
+        <svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M4 6h16M4 12h16M4 18h16"></path>
+        </svg>
+      </button>
+      <nav class="nav-links" id="navLinks">
+        <a href="index.html">Home</a>
+        <a href="about.html">About</a>
+        <a href="industries.html">Industries</a>
+        <a href="reports.html" class="active">Latest Reports</a>
+        <a href="services.html">Services</a>
+        <a href="contact.html">Contact</a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Page Header -->
+  <section class="section bg-light" style="padding-bottom: 3rem;">
+    <div class="container">
+      <div class="section-header text-center" style="margin-bottom: 0;">
+        <h1>Latest Reports</h1>
+        <p>Browse our exhaustive catalog of recent industry studies, forecasts, and competitive landscapes.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Reports Feed -->
+  <section class="section">
+    <div class="container" style="max-width: 900px;">
+
+      <!-- Report Placeholder 1 (You can link this to report.html when ready) -->
+      <div class="report-card-wide">
+        <div class="report-content">
+          <div class="report-meta mb-2">
+            <span class="report-tag">Technology</span>
+            <span>Published: March 2026</span>
+          </div>
+          <h3 style="margin-top: 0.5rem;"><a href="report.html" class="text-dark">Global Artificial Intelligence Market
+              Analysis & Forecast 2026-2032</a></h3>
+          <p>A comprehensive overview of AI adoption across sectors, analyzing growth drivers, restraints, and
+            competitive landscapes.</p>
+        </div>
+        <div>
+          <a href="report.html" class="btn btn-outline" style="white-space: nowrap;">View Report</a>
+        </div>
+      </div>
+
+      <!-- End of reports (More can be added dynamically later) -->
+
+      <div class="text-center" style="margin-top: 3rem;">
+        <p class="text-light">More reports will be published soon. Check back later or subscribe to our newsletter.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <a href="index.html" class="logo text-white">
+            <span class="text-accent" style="font-size: 1.5rem; font-weight: 800;">strativainte</span>lligence
+          </a>
+          <p class="mt-2 text-gray">Power your decisions with trusted, data-driven market intelligence and tailored
+            consulting.</p>
+        </div>
+        <div>
+          <h4 class="footer-heading">Company</h4>
+          <ul class="footer-links">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="about.html">About</a></li>
+            <li><a href="services.html">Services</a></li>
+            <li><a href="contact.html">Contact Us</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4 class="footer-heading">Quick Links</h4>
+          <ul class="footer-links">
+            <li><a href="industries.html">Industries</a></li>
+            <li><a href="reports.html">Latest Reports</a></li>
+            <li><a href="blog.html">Blog</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4 class="footer-heading">Contact</h4>
+          <ul class="footer-links">
+            <li class="text-gray">Email: info@strativaintelligence.com</li>
+            <li class="text-gray">Phone: +91 97304 20460</li>
+            <li class="text-gray">Address: Pune</li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>&copy; 2026 Your Company. All rights reserved.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+
+</html>

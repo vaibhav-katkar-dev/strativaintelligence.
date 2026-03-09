@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Blog - Read our latest insights, news, and market intelligence updates.">
+  <title>Blog | Market Intelligence & Consulting</title>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Outfit:wght@400;500;600;700&display=swap"
+    rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    .blog-card {
+      background: var(--bg-color);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-md);
+      overflow: hidden;
+      transition: var(--transition);
+      display: flex;
+      flex-direction: column;
+      height: 100%;
+    }
+
+    .blog-card:hover {
+      box-shadow: var(--shadow-md);
+      transform: translateY(-4px);
+    }
+
+    .blog-content {
+      padding: 1.5rem;
+      display: flex;
+      flex-direction: column;
+      flex-grow: 1;
+    }
+
+    .blog-date {
+      font-size: 0.875rem;
+      color: var(--text-light);
+      margin-bottom: 0.75rem;
+    }
+
+    .blog-title {
+      font-size: 1.25rem;
+      margin-bottom: 1rem;
+      line-height: 1.4;
+    }
+
+    .blog-title a {
+      color: var(--text-dark);
+    }
+
+    .blog-title a:hover {
+      color: var(--accent-color);
+    }
+
+    .blog-excerpt {
+      color: var(--text-base);
+      margin-bottom: 1.5rem;
+      flex-grow: 1;
+    }
+
+    .blog-img {
+      height: 200px;
+      background: var(--bg-shade);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--text-light);
+      font-weight: 500;
+      border-bottom: 1px solid var(--border-color);
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- Header & Navigation -->
+  <header class="header">
+    <div class="container nav-container">
+      <a href="index.html" class="logo">
+        <span class="text-accent" style="font-size: 1.5rem; font-weight: 800;">strativainte</span>lligence
+      </a>
+      <button class="nav-toggle" id="navToggle" aria-label="Toggle Navigation">
+        <svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M4 6h16M4 12h16M4 18h16"></path>
+        </svg>
+      </button>
+      <nav class="nav-links" id="navLinks">
+        <a href="index.html">Home</a>
+        <a href="about.html">About</a>
+        <a href="industries.html">Industries</a>
+        <a href="reports.html">Latest Reports</a>
+        <a href="services.html">Services</a>
+        <a href="contact.html">Contact</a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Page Header -->
+  <section class="section bg-light" style="padding-bottom: 3rem;">
+    <div class="container">
+      <div class="section-header text-center" style="margin-bottom: 0;">
+        <h1>Our Blog</h1>
+        <p>Expert perspectives on emerging trends, disruptive tech, and global economic shifts.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Blog Grid -->
+  <section class="section">
+    <div class="container">
+      <div class="grid grid-3"
+        style="display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 2.5rem;">
+
+        <!-- Blog 1 -->
+        <div class="blog-card">
+          <div class="blog-img" style="background: linear-gradient(135deg, #e2e8f0, #cbd5e1);">Article Thumbnail</div>
+          <div class="blog-content">
+            <div class="blog-date">March 05, 2026 • 5 min read</div>
+            <h3 class="blog-title"><a href="#">How GenAI is Reshaping Enterprise Software Delivery</a></h3>
+            <p class="blog-excerpt">We analyze the rapid integration rates of generative AI tools passing through the
+              top Fortune 500 companies in the fiscal quarter.</p>
+            <a href="#" class="text-accent fw-bold" style="font-weight: 600;">Read Article &rarr;</a>
+          </div>
+        </div>
+
+        <!-- Blog 2 -->
+        <div class="blog-card">
+          <div class="blog-img" style="background: linear-gradient(135deg, #e2e8f0, #cbd5e1);">Article Thumbnail</div>
+          <div class="blog-content">
+            <div class="blog-date">Feb 22, 2026 • 4 min read</div>
+            <h3 class="blog-title"><a href="#">The Approaching Reality of Solid-State EV Batteries</a></h3>
+            <p class="blog-excerpt">Commercial viability insights and manufacturing timelines for the next generation of
+              electric mobility hardware.</p>
+            <a href="#" class="text-accent fw-bold" style="font-weight: 600;">Read Article &rarr;</a>
+          </div>
+        </div>
+
+        <!-- Blog 3 -->
+        <div class="blog-card">
+          <div class="blog-img" style="background: linear-gradient(135deg, #e2e8f0, #cbd5e1);">Article Thumbnail</div>
+          <div class="blog-content">
+            <div class="blog-date">Feb 15, 2026 • 6 min read</div>
+            <h3 class="blog-title"><a href="#">Global Shifts in DeFi Regulations Throughout 2026</a></h3>
+            <p class="blog-excerpt">Highlighting the crucial crypto and decentralized finance compliance shifts
+              cascading through international markets.</p>
+            <a href="#" class="text-accent fw-bold" style="font-weight: 600;">Read Article &rarr;</a>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Newsletter -->
+      <div
+        style="background: var(--primary-color); color: white; padding: 3rem; border-radius: var(--radius-lg); margin-top: 5rem; text-align: center;">
+        <h2 class="text-white" style="margin-bottom: 1rem;">Subscribe to Our Newsletter</h2>
+        <p style="color: #cbd5e1; margin-bottom: 2rem;">Get our latest market insights and report releases delivered
+          directly to your inbox.</p>
+        <form style="display: flex; gap: 1rem; max-width: 500px; margin: 0 auto; justify-content: center;">
+          <input type="email" placeholder="Your work email..." required
+            style="padding: 0.875rem 1.5rem; border-radius: var(--radius-md); border: none; width: 100%; outline: none;">
+          <button type="submit" class="btn btn-primary" style="white-space: nowrap;">Subscribe</button>
+        </form>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <a href="index.html" class="logo text-white">
+            <span class="text-accent" style="font-size: 1.5rem; font-weight: 800;">strativainte</span>lligence
+          </a>
+          <p class="mt-2 text-gray">Power your decisions with trusted, data-driven market intelligence and tailored
+            consulting.</p>
+        </div>
+        <div>
+          <h4 class="footer-heading">Company</h4>
+          <ul class="footer-links">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="about.html">About</a></li>
+            <li><a href="services.html">Services</a></li>
+            <li><a href="contact.html">Contact Us</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4 class="footer-heading">Quick Links</h4>
+          <ul class="footer-links">
+            <li><a href="industries.html">Industries</a></li>
+            <li><a href="reports.html">Latest Reports</a></li>
+            <li><a href="blog.html">Blog</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4 class="footer-heading">Contact</h4>
+          <ul class="footer-links">
+            <li class="text-gray">Email: info@strativaintelligence.com</li>
+            <li class="text-gray">Phone: +91 97304 20460</li>
+            <li class="text-gray">Address: Pune</li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>&copy; 2026 Your Company. All rights reserved.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+
+</html>
