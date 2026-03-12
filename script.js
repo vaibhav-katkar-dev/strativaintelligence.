@@ -93,4 +93,47 @@ document.addEventListener('DOMContentLoaded', () => {
       mainInput.addEventListener('input', () => performSearch(mainInput));
     }
   }
+
+  // --- Counter Animation for Stats ---
+  const statNumbers = document.querySelectorAll('.stat-number');
+  
+  if (statNumbers.length > 0) {
+    const animateCounters = (entries, observer) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          const targetElement = entry.target;
+          const targetValue = parseInt(targetElement.getAttribute('data-target'));
+          const suffix = targetElement.getAttribute('data-suffix') || '';
+          
+          let currentCount = 0;
+          const duration = 2000; // 2 seconds animation
+          const frames = 60; // 60 FPS
+          const increment = targetValue / frames;
+          const stepTime = duration / frames;
+          
+          const updateCounter = () => {
+            currentCount += increment;
+            if (currentCount < targetValue) {
+              targetElement.textContent = `${Math.ceil(currentCount)}${suffix}`;
+              setTimeout(updateCounter, stepTime);
+            } else {
+              targetElement.textContent = `${targetValue}${suffix}`;
+            }
+          };
+          
+          targetElement.textContent = `0${suffix}`;
+          updateCounter();
+          observer.unobserve(targetElement);
+        }
+      });
+    };
+
+    const counterObserver = new IntersectionObserver(animateCounters, {
+      threshold: 0.5
+    });
+
+    statNumbers.forEach(stat => {
+      counterObserver.observe(stat);
+    });
+  }
 });
