@@ -889,4 +889,16 @@ h3 {
   .logo span {
     font-size: 1.2rem !important;
   }
+
+  .nav-item {
+    padding: 0;
+  }
+
+  .nav-item:hover .dropdown-menu {
+    display: none !important;
+  }
+
+  .dropdown-menu {
+    display: none !important;
+  }
 }
