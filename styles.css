@@ -112,7 +112,10 @@ img {
 }
 
 .bg-light {
+  color:white;
   background-color: var(--bg-shade);
+    background: linear-gradient(135deg, #192b41 0%, #182b41 45%, #60a5fa 100%) !important;
+
 }
 
 .bg-dark {
@@ -149,6 +152,7 @@ h3 {
 
 .section {
   padding: 5rem 0;
+  
 }
 
 .about-section {
@@ -719,11 +723,21 @@ h3 {
 .what-we-do-section {
   position: relative;
   overflow: hidden;
-  background: linear-gradient(135deg, #192b41 0%, #182b41 45%, #60a5fa 100%);
+  background:
+    radial-gradient(circle at 12% 18%, rgba(212, 175, 55, 0.16), transparent 36%),
+    radial-gradient(circle at 88% 82%, rgba(99, 102, 241, 0.12), transparent 30%),
+    linear-gradient(180deg, #ffffff 0%, #f8fafc 100%);
 }
 
 .what-we-do-section::before {
-  content: none;
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background-image: linear-gradient(rgba(148, 163, 184, 0.12) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(148, 163, 184, 0.12) 1px, transparent 1px);
+  background-size: 28px 28px;
+  mask-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.45), transparent 85%);
 }
 
 .what-we-do-section .container {
@@ -737,25 +751,26 @@ h3 {
 
 .what-we-do-section .section-header h2,
 .what-we-do-section .section-header p {
-  color: #ffffff;
+  color: var(--text-dark);
 }
 
 .what-we-do-section .section-tag {
-  color: #ffffff;
-  background-color: rgba(255, 255, 255, 0.18);
-  border: 1px solid rgba(255, 255, 255, 0.35);
+  color: var(--accent-color);
+  background-color: var(--accent-light);
+  border: none;
 }
 
 .what-we-do-section .section-header p {
   max-width: 640px;
   margin: 0.5rem auto 0;
+  color: var(--text-light);
 }
 
 .what-we-do-section .service-card {
-  background: rgba(255, 255, 255, 0.08);
-  border: 1px solid rgba(255, 255, 255, 0.2);
-  box-shadow: 0 18px 40px -28px rgba(0, 0, 0, 0.3);
-  color: #ffffff;
+  background: rgba(255, 255, 255, 0.94);
+  border: 1px solid rgba(148, 163, 184, 0.28);
+  box-shadow: 0 18px 40px -28px rgba(15, 23, 42, 0.42);
+  color: var(--text-dark);
 }
 
 .what-we-do-section .service-card::after {
@@ -773,10 +788,10 @@ h3 {
 
 .what-we-do-section .service-card:hover {
   transform: translateY(-8px);
-  border-color: rgba(255, 255, 255, 0.5);
-  box-shadow: 0 24px 40px -24px rgba(255, 255, 255, 0.2);
-  background: rgba(255, 255, 255, 0.15);
-  color: #ffffff;
+  border-color: rgba(212, 175, 55, 0.78);
+  box-shadow: 0 24px 40px -24px rgba(212, 175, 55, 0.4);
+  background: linear-gradient(180deg, #ffffff 0%, #fff9ea 100%);
+  color: var(--text-dark);
 }
 
 .what-we-do-section .service-card:hover::after {
@@ -784,27 +799,27 @@ h3 {
 }
 
 .what-we-do-section .icon-wrapper {
-  background: rgba(255, 255, 255, 0.15);
-  border: 1px solid rgba(255, 255, 255, 0.3);
-  color: #ffffff;
+  background: linear-gradient(135deg, rgba(99, 102, 241, 0.18), rgba(99, 102, 241, 0.08));
+  border: 1px solid rgba(99, 102, 241, 0.25);
+  color: var(--accent-color);
 }
 
 .what-we-do-section .service-card:hover .icon-wrapper {
-  background: linear-gradient(135deg, #93c5fd 0%, #60a5fa 100%);
+  background: linear-gradient(135deg, #f6e7b8 0%, #d4af37 100%);
   color: #111827;
-  border-color: #60a5fa;
+  border-color: rgba(212, 175, 55, 0.82);
 }
 
 .what-we-do-section .btn-outline {
-  color: #ffffff;
-  border-color: rgba(255, 255, 255, 0.5);
-  background: transparent;
+  color: #0f172a;
+  border-color: rgba(212, 175, 55, 0.7);
+  background: rgba(255, 255, 255, 0.92);
 }
 
 .what-we-do-section .btn-outline:hover {
-  color: #ffffff;
-  border-color: #ffffff;
-  background: rgba(255, 255, 255, 0.15);
+  color: #111827;
+  border-color: #d4af37;
+  background: linear-gradient(135deg, #f6e7b8 0%, #d4af37 100%);
 }
 
 /* Dark Section Utility - For About, Services, Contact pages */
@@ -882,11 +897,48 @@ h3 {
   color: #ffffff;
 }
 
+.industries-premium-section .btn-secondary {
+  background: rgba(255, 255, 255, 0.15);
+  color: #ffffff;
+  border-color: rgba(255, 255, 255, 0.3);
+}
+
+.industries-premium-section .btn-secondary:hover {
+  background: rgba(255, 255, 255, 0.25);
+  border-color: rgba(255, 255, 255, 0.5);
+  color: #ffffff;
+}
+
 .industry-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
   gap: 1.5rem;
   margin-bottom: 2rem;
+}
+
+.industries-premium-section .industry-card {
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  color: #ffffff;
+}
+
+.industries-premium-section .industry-card.with-img {
+  background: white;
+  overflow: hidden;
+}
+
+.industries-premium-section .industry-card.with-img .industry-title {
+  color: var(--text-dark);
+}
+
+.industries-premium-section .industry-card:hover {
+  background: rgba(255, 255, 255, 0.15);
+  border-color: rgba(255, 255, 255, 0.5);
+  color: #ffffff;
+}
+
+.industries-premium-section .industry-card.with-img:hover {
+  background: white;
 }
 
 .industry-card {
