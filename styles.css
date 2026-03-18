@@ -22,6 +22,7 @@
   --header-logo-height: 110px;
   --header-nav-height: 80px;
   --header-logo-offset-y: 10px;
+  --header-logo-top-margin-desktop: 10px;
 
   --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
   --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
@@ -215,7 +216,12 @@ h3 {
 .header .logo {
   position: relative;
   z-index: 120;
+  margin-top: var(--header-logo-top-margin-desktop);
   transform: translateY(calc(var(--header-logo-offset-y) * -1));
+}
+
+.header .logo img {
+  margin: 0;
 }
 
 .nav-links {
@@ -1190,7 +1196,12 @@ h3 {
 
 @media (max-width: 768px) {
   .header .logo {
+    margin-top: 0;
     transform: none;
+  }
+
+  .header .logo img {
+    margin: 0;
   }
 
   .hero-content {
