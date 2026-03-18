@@ -1210,6 +1210,11 @@ h3 {
     right: 0;
     background: white;
     flex-direction: column;
+    align-items: stretch;
+    gap: 0.5rem;
+    height: auto;
+    max-height: calc(100vh - 90px);
+    overflow-y: auto;
     padding: 1.5rem;
     box-shadow: var(--shadow-md);
     border-top: 1px solid var(--border-color);
@@ -1222,6 +1227,20 @@ h3 {
   .nav-links.active {
     clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
     visibility: visible;
+  }
+
+  .nav-links > a,
+  .nav-item > a {
+    height: auto;
+    min-height: 44px;
+    justify-content: center;
+    padding: 0.5rem 0;
+  }
+
+  .nav-item {
+    height: auto;
+    width: 100%;
+    justify-content: center;
   }
 
   .hero-actions {
