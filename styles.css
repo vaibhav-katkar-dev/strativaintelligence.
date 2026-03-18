@@ -19,6 +19,9 @@
   --font-sans: 'Inter', system-ui, -apple-system, sans-serif;
   --font-display: 'Outfit', system-ui, -apple-system, sans-serif;
   --max-width: 1240px;
+  --header-logo-height: 110px;
+  --header-nav-height: 80px;
+  --header-logo-offset-y: 10px;
 
   --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
   --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
@@ -65,6 +68,8 @@ ul {
 
 img {
   max-width: 100%;
+  margin-top: 10px;
+  margin-bottom: 5px;
   min-height: 150px;
   display: block;
 }
@@ -183,7 +188,9 @@ h3 {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  height: 80px;
+  height: var(--header-nav-height);
+  position: relative;
+  overflow: visible;
 }
 
 .logo {
@@ -196,11 +203,26 @@ h3 {
   gap: 0.5rem;
 }
 
+.logo img {
+  min-height: 0;
+}
+
+.header .logo img {
+  height: var(--header-logo-height) !important;
+  width: auto;
+}
+
+.header .logo {
+  position: relative;
+  z-index: 120;
+  transform: translateY(calc(var(--header-logo-offset-y) * -1));
+}
+
 .nav-links {
   display: flex;
   gap: 2.5rem;
   align-items: center;
-  height: 80px;
+  height: var(--header-nav-height);
 }
 
 .nav-links a {
@@ -216,7 +238,7 @@ h3 {
 .nav-item > a {
   display: inline-flex;
   align-items: center;
-  height: 80px;
+  height: var(--header-nav-height);
   padding-bottom: 0;
   line-height: 1;
 }
@@ -260,7 +282,7 @@ h3 {
 .nav-item {
   position: relative;
   padding: 0;
-  height: 80px;
+  height: var(--header-nav-height);
   display: flex;
   align-items: center;
 }
@@ -1167,6 +1189,10 @@ h3 {
 }
 
 @media (max-width: 768px) {
+  .header .logo {
+    transform: none;
+  }
+
   .hero-content {
     margin-top: 0.5rem;
   }
