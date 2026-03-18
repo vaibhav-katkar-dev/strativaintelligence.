@@ -1058,6 +1058,12 @@ h3 {
   padding: 5rem 0 2rem;
 }
 
+.footer-brand .logo img {
+  height: 150px !important;
+  width: auto;
+  min-height: 0;
+}
+
 .footer-grid {
   display: grid;
   grid-template-columns: 2fr 1fr 1fr 1.5fr;
