@@ -1493,6 +1493,46 @@ h3 {
   .dropdown-menu {
     display: none !important;
   }
+
+    /* Industries page mobile stability */
+    .industries-page .nav-container {
+      height: 72px;
+    }
+
+    .industries-page .header .logo img {
+      height: 56px !important;
+    }
+
+    .industries-page .section-header {
+      padding: 0 0.5rem;
+    }
+
+    .industries-page .hero-search-container {
+      width: 100% !important;
+      max-width: 100% !important;
+      margin-top: 1rem !important;
+    }
+
+    .industries-page .hero-search-input {
+      padding-right: 7rem;
+    }
+
+    .industries-page .hero-search-btn {
+      padding: 0 0.95rem;
+      font-size: 0.88rem;
+    }
+
+    .industries-page .industry-card .industry-img {
+      height: 170px;
+    }
+
+    .industries-page .industry-card.with-img .industry-title {
+      font-size: 1rem;
+    }
+
+    .footer-brand .logo img {
+      height: 56px !important;
+    }
 }
 /* Hero Slider Styles */
 .hero-slider {
