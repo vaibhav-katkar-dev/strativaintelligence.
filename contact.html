@@ -133,18 +133,21 @@
         <!-- Form -->
         <div
           style="background: var(--bg-shade); padding: 2rem; border-radius: var(--radius-lg); border: 1px solid var(--border-color);">
-          <form action="#" method="POST">
+          <form action="https://api.web3forms.com/submit" method="POST">
+            <input type="hidden" name="access_key" value="f27259e4-e44e-4b95-8a29-ebaaf020531c">
+            <input type="hidden" name="subject" value="New Contact Form Submission - Strativa Intelligence">
+            <input type="checkbox" name="botcheck" class="hidden" style="display: none;">
             <div class="form-group">
               <label for="name" class="form-label">Full Name</label>
-              <input type="text" id="name" class="form-control" required placeholder="John Doe">
+              <input type="text" id="name" name="name" class="form-control" required placeholder="John Doe">
             </div>
             <div class="form-group">
               <label for="email" class="form-label">Email Address</label>
-              <input type="email" id="email" class="form-control" required placeholder="john@company.com">
+              <input type="email" id="email" name="email" class="form-control" required placeholder="john@company.com">
             </div>
             <div class="form-group">
-              <label for="subject" class="form-label">Subject</label>
-              <select id="subject" class="form-control">
+              <label for="inquiry_type" class="form-label">Subject</label>
+              <select id="inquiry_type" name="inquiry_type" class="form-control">
                 <option>General Inquiry</option>
                 <option>Request Custom Report</option>
                 <option>Consulting Services</option>
@@ -152,7 +155,7 @@
             </div>
             <div class="form-group">
               <label for="message" class="form-label">Message</label>
-              <textarea id="message" class="form-control" required
+              <textarea id="message" name="message" class="form-control" required
                 placeholder="Tell us about your data needs..."></textarea>
             </div>
             <button type="submit" class="btn btn-primary" style="width: 100%;">Send Message</button>
