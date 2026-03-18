@@ -136,4 +136,18 @@ document.addEventListener('DOMContentLoaded', () => {
       counterObserver.observe(stat);
     });
   }
+
+  // Brief golden highlight when service/industry cards are clicked.
+  const clickableCards = document.querySelectorAll('.service-card, .industry-card');
+  clickableCards.forEach(card => {
+    card.addEventListener('click', () => {
+      card.classList.remove('clicked');
+      // Force reflow so repeated clicks retrigger the effect.
+      void card.offsetWidth;
+      card.classList.add('clicked');
+      setTimeout(() => {
+        card.classList.remove('clicked');
+      }, 450);
+    });
+  });
 });
