@@ -5,66 +5,273 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="description" content="Latest Reports - Stay updated with our newest market research publications.">
-  <meta property="og:title" content="Strativa Intelligence | Market Research">
+  <meta property="og:title" content="Strativa Intelligence | Latest Market Research Reports">
   <meta property="og:description" content="Trusted, data-driven market intelligence and tailored consulting.">
   <meta property="og:type" content="website">
   <title>Latest Reports | Market Intelligence & Consulting</title>
-  <link
-    href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Outfit:wght@400;500;600;700&display=swap"
-    rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Outfit:wght@400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link rel="icon" href="images/SI logo.svg" type="image/svg+xml">
   <style>
-    /* Styling specifically for the placeholder reports list */
-    .report-card-wide {
+    /* ===== REPORTS PAGE STYLES ===== */
+
+    /* Filter Bar */
+    .filter-bar {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.75rem;
+      margin-bottom: 2.5rem;
+      align-items: center;
+    }
+    .filter-label {
+      font-weight: 600;
+      color: var(--text-dark);
+      font-size: 0.9rem;
+    }
+    .filter-btn {
+      padding: 0.45rem 1.1rem;
+      border-radius: 9999px;
+      border: 1.5px solid var(--border-color);
+      background: white;
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: var(--text-light);
+      cursor: pointer;
+      transition: var(--transition);
+    }
+    .filter-btn:hover, .filter-btn.active {
+      background: var(--accent-color);
+      border-color: var(--accent-color);
+      color: white;
+    }
+
+    /* Report Cards Grid */
+    .reports-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 2rem;
+    }
+    @media (min-width: 768px) {
+      .reports-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+    @media (min-width: 1200px) {
+      .reports-grid {
+        grid-template-columns: repeat(3, 1fr);
+      }
+    }
+
+    .report-card {
       background: var(--bg-color);
       border: 1px solid var(--border-color);
       border-radius: var(--radius-lg);
-      padding: 2rem;
+      overflow: hidden;
+      transition: var(--transition);
       display: flex;
       flex-direction: column;
-      gap: 1.5rem;
-      transition: var(--transition);
-      margin-bottom: 1.5rem;
     }
-
-    .report-card-wide:hover {
+    .report-card:hover {
+      transform: translateY(-6px);
+      box-shadow: var(--shadow-lg);
       border-color: var(--accent-color);
-      box-shadow: var(--shadow-md);
     }
-
-    .report-meta {
+    .report-card-img {
+      width: 100%;
+      height: 200px;
+      object-fit: cover;
+      display: block;
+      transition: transform 0.5s ease;
+    }
+    .report-card:hover .report-card-img {
+      transform: scale(1.04);
+    }
+    .report-card-img-wrap {
+      overflow: hidden;
+      position: relative;
+    }
+    .report-card-badge {
+      position: absolute;
+      top: 1rem;
+      left: 1rem;
+      background: var(--accent-color);
+      color: white;
+      font-size: 0.72rem;
+      font-weight: 700;
+      padding: 0.3rem 0.8rem;
+      border-radius: 9999px;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+    .report-card-body {
+      padding: 1.5rem;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+    }
+    .report-card-meta {
       display: flex;
       gap: 1rem;
-      font-size: 0.875rem;
+      font-size: 0.8rem;
       color: var(--text-light);
+      margin-bottom: 0.75rem;
+      flex-wrap: wrap;
+    }
+    .report-card-meta span {
+      display: flex;
       align-items: center;
+      gap: 0.3rem;
     }
-
-    .report-tag {
-      background: var(--accent-light);
-      color: var(--accent-color);
-      padding: 0.25rem 0.75rem;
-      border-radius: 9999px;
+    .report-card-title {
+      font-size: 1.05rem;
+      font-weight: 700;
+      color: var(--text-dark);
+      margin-bottom: 0.75rem;
+      line-height: 1.4;
+      font-family: var(--font-display);
+    }
+    .report-card-desc {
+      color: var(--text-light);
+      font-size: 0.875rem;
+      line-height: 1.6;
+      margin-bottom: 1.5rem;
+      flex: 1;
+    }
+    .report-card-actions {
+      display: flex;
+      gap: 0.75rem;
+      flex-wrap: wrap;
+    }
+    .btn-sample {
+      flex: 1;
+      padding: 0.6rem 1rem;
+      border-radius: var(--radius-md);
+      font-size: 0.85rem;
       font-weight: 600;
-      font-size: 0.75rem;
-      text-transform: uppercase;
+      text-align: center;
+      cursor: pointer;
+      transition: var(--transition);
+      border: 1.5px solid var(--accent-color);
+      background: transparent;
+      color: var(--accent-color);
+    }
+    .btn-sample:hover {
+      background: var(--accent-color);
+      color: white;
+    }
+    .btn-enquiry {
+      flex: 1;
+      padding: 0.6rem 1rem;
+      border-radius: var(--radius-md);
+      font-size: 0.85rem;
+      font-weight: 600;
+      text-align: center;
+      cursor: pointer;
+      transition: var(--transition);
+      border: 1.5px solid var(--primary-color);
+      background: var(--primary-color);
+      color: white;
+    }
+    .btn-enquiry:hover {
+      background: var(--primary-light);
+      border-color: var(--primary-light);
     }
 
-    @media (min-width: 768px) {
-      .report-card-wide {
-        flex-direction: row;
-        align-items: center;
-        justify-content: space-between;
-      }
+    /* ===== INDUSTRY BROWSER SECTION ===== */
+    .industry-browser {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+      gap: 1rem;
+    }
+    .industry-tile {
+      background: white;
+      border: 1.5px solid var(--border-color);
+      border-radius: var(--radius-md);
+      padding: 1.25rem 1rem;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.75rem;
+      text-align: center;
+      text-decoration: none;
+      color: var(--text-dark);
+      font-weight: 600;
+      font-size: 0.9rem;
+      font-family: var(--font-display);
+      transition: var(--transition);
+    }
+    .industry-tile i {
+      font-size: 1.6rem;
+      color: var(--accent-color);
+      transition: var(--transition);
+    }
+    .industry-tile:hover {
+      background: var(--accent-color);
+      border-color: var(--accent-color);
+      color: white;
+      transform: translateY(-4px);
+      box-shadow: var(--shadow-md);
+    }
+    .industry-tile:hover i {
+      color: white;
+    }
 
-      .report-content {
-        max-width: 70%;
-      }
+    /* Search in reports */
+    .reports-search-bar {
+      display: flex;
+      gap: 0.75rem;
+      max-width: 600px;
+      margin: 0 auto 2.5rem;
+    }
+    .reports-search-bar input {
+      flex: 1;
+      padding: 0.9rem 1.25rem;
+      border-radius: var(--radius-md);
+      border: 1.5px solid var(--border-color);
+      font-size: 0.95rem;
+      font-family: var(--font-sans);
+      outline: none;
+      transition: var(--transition);
+    }
+    .reports-search-bar input:focus {
+      border-color: var(--accent-color);
+      box-shadow: 0 0 0 3px var(--accent-light);
+    }
+    .reports-search-bar button {
+      padding: 0.9rem 1.75rem;
+      background: var(--accent-color);
+      color: white;
+      border: none;
+      border-radius: var(--radius-md);
+      font-weight: 600;
+      font-size: 0.95rem;
+      cursor: pointer;
+      transition: var(--transition);
+    }
+    .reports-search-bar button:hover {
+      background: var(--accent-hover);
     }
   </style>
 </head>
 
 <body>
+
+  <!-- Top Bar -->
+  <div class="top-bar">
+    <div class="container top-bar-container">
+      <div class="top-bar-left">
+        <a href="mailto:info@strativaintelligence.com"><i class="fa-solid fa-envelope"></i> info@strativaintelligence.com</a>
+        <a href="tel:+919730420460"><i class="fa-solid fa-phone"></i> +91 97304 20460</a>
+      </div>
+      <div class="top-bar-right">
+        <a href="reports.html">Report Store</a>
+        <a href="services.html">Consulting</a>
+        <a href="#">Subscription</a>
+        <a href="#">Careers</a>
+      </div>
+    </div>
+  </div>
 
   <!-- Header & Navigation -->
   <header class="header">
@@ -83,20 +290,20 @@
         <div class="nav-item">
           <a href="industries.html">Industries ▾</a>
           <div class="dropdown-menu">
-            <a href="industries.html?q=technology">Technology & IT</a>
-            <a href="industries.html?q=healthcare">Healthcare</a>
-            <a href="industries.html?q=energy">Energy & Power</a>
-            <a href="industries.html?q=automotive">Automotive</a>
-            <a href="industries.html?q=agriculture">Agriculture</a>
-            <a href="industries.html?q=aerospace">Aerospace & Defense</a>
-            <a href="industries.html?q=construction">Construction</a>
-            <a href="industries.html?q=consumer">Consumer Goods</a>
-            <a href="industries.html?q=foods">Foods & Beverages</a>
-            <a href="industries.html?q=ict">ICT & Semiconductor</a>
-            <a href="industries.html?q=mining">Mining & Metals</a>
-            <a href="industries.html?q=manufacturing">Manufacturing</a>
-            <a href="industries.html?q=chemicals">Chemicals</a>
-            <a href="industries.html?q=telecom">Telecom</a>
+            <a href="industries.html?q=technology"><i class="fa-solid fa-laptop-code" style="margin-right:8px; width:16px; text-align:center;"></i> Technology &amp; IT</a>
+            <a href="industries.html?q=healthcare"><i class="fa-solid fa-heart-pulse" style="margin-right:8px; width:16px; text-align:center;"></i> Healthcare</a>
+            <a href="industries.html?q=energy"><i class="fa-solid fa-bolt" style="margin-right:8px; width:16px; text-align:center;"></i> Energy &amp; Power</a>
+            <a href="industries.html?q=automotive"><i class="fa-solid fa-car" style="margin-right:8px; width:16px; text-align:center;"></i> Automotive</a>
+            <a href="industries.html?q=agriculture"><i class="fa-solid fa-seedling" style="margin-right:8px; width:16px; text-align:center;"></i> Agriculture</a>
+            <a href="industries.html?q=aerospace"><i class="fa-solid fa-rocket" style="margin-right:8px; width:16px; text-align:center;"></i> Aerospace &amp; Defense</a>
+            <a href="industries.html?q=construction"><i class="fa-solid fa-helmet-safety" style="margin-right:8px; width:16px; text-align:center;"></i> Construction</a>
+            <a href="industries.html?q=consumer"><i class="fa-solid fa-bag-shopping" style="margin-right:8px; width:16px; text-align:center;"></i> Consumer Goods</a>
+            <a href="industries.html?q=foods"><i class="fa-solid fa-utensils" style="margin-right:8px; width:16px; text-align:center;"></i> Foods &amp; Beverages</a>
+            <a href="industries.html?q=ict"><i class="fa-solid fa-microchip" style="margin-right:8px; width:16px; text-align:center;"></i> ICT &amp; Semiconductor</a>
+            <a href="industries.html?q=mining"><i class="fa-solid fa-hammer" style="margin-right:8px; width:16px; text-align:center;"></i> Mining &amp; Metals</a>
+            <a href="industries.html?q=manufacturing"><i class="fa-solid fa-industry" style="margin-right:8px; width:16px; text-align:center;"></i> Manufacturing</a>
+            <a href="industries.html?q=chemicals"><i class="fa-solid fa-flask" style="margin-right:8px; width:16px; text-align:center;"></i> Chemicals</a>
+            <a href="industries.html?q=telecom"><i class="fa-solid fa-tower-cell" style="margin-right:8px; width:16px; text-align:center;"></i> Telecom</a>
           </div>
         </div>
         <a href="reports.html" class="active">Latest Reports</a>
@@ -109,38 +316,234 @@
   <!-- Page Header -->
   <section class="section bg-light" style="padding-bottom: 3rem;">
     <div class="container">
-      <div class="section-header text-center" style="margin-bottom: 0;">
-        <h1>Latest Reports</h1>
+      <div class="section-header text-center" style="margin-bottom: 1.5rem;">
+        <div class="section-tag">Research & Intelligence</div>
+        <h1>Latest Market Reports</h1>
         <p>Browse our exhaustive catalog of recent industry studies, forecasts, and competitive landscapes.</p>
+      </div>
+      <div class="reports-search-bar">
+        <input type="text" id="reportSearch" placeholder="Search reports by title, industry...">
+        <button onclick="filterReports()"><i class="fa-solid fa-search"></i> Search</button>
       </div>
     </div>
   </section>
 
+  <!-- Color Bar -->
+  <div style="height: 4px; background: linear-gradient(90deg, var(--accent-color), var(--primary-color));"></div>
+
   <!-- Reports Feed -->
   <section class="section">
-    <div class="container" style="max-width: 900px;">
+    <div class="container">
 
-      <!-- Report Placeholder 1 (You can link this to report.html when ready) -->
-      <div class="report-card-wide">
-        <div class="report-content">
-          <div class="report-meta mb-2">
-            <span class="report-tag">Strategic Content</span>
-            <span>Published: March 2026</span>
-          </div>
-          <h3 style="margin-top: 0.5rem;"><a href="report.html" class="text-dark">Strategic Intelligence Reports</a>
-          </h3>
-          <p>Personalized research studies combining market analysis, competitor intelligence, and future trend
-            evaluation for high-level strategic planning.</p>
-        </div>
-        <div>
-          <a href="report.html" class="btn btn-outline" style="white-space: nowrap;">View Report</a>
-        </div>
+      <!-- Filter Buttons -->
+      <div class="filter-bar">
+        <span class="filter-label">Filter by:</span>
+        <button class="filter-btn active" onclick="setFilter('all', this)">All</button>
+        <button class="filter-btn" onclick="setFilter('healthcare', this)">Healthcare</button>
+        <button class="filter-btn" onclick="setFilter('technology', this)">Technology</button>
+        <button class="filter-btn" onclick="setFilter('energy', this)">Energy</button>
+        <button class="filter-btn" onclick="setFilter('automotive', this)">Automotive</button>
+        <button class="filter-btn" onclick="setFilter('ict', this)">ICT</button>
+        <button class="filter-btn" onclick="setFilter('agriculture', this)">Agriculture</button>
+        <button class="filter-btn" onclick="setFilter('chemicals', this)">Chemicals</button>
+        <button class="filter-btn" onclick="setFilter('manufacturing', this)">Manufacturing</button>
       </div>
 
-      <!-- End of reports (More can be added dynamically later) -->
+      <!-- Reports Grid -->
+      <div class="reports-grid" id="reportsGrid">
+
+        <div class="report-card" data-category="healthcare">
+          <div class="report-card-img-wrap">
+            <img src="https://images.unsplash.com/photo-1516549655169-df83a0774514?auto=format&fit=crop&w=600&q=80" alt="Rapid Diagnostics" class="report-card-img">
+            <span class="report-card-badge">Healthcare</span>
+          </div>
+          <div class="report-card-body">
+            <div class="report-card-meta">
+              <span><i class="fa-regular fa-calendar"></i> September 2025</span>
+              <span><i class="fa-regular fa-file-lines"></i> 318 Pages</span>
+            </div>
+            <h3 class="report-card-title">Global Rapid Diagnostics Market</h3>
+            <p class="report-card-desc">Segmented by Product Type, Technology, Application, End-User, and Region. Covers major players and emerging competitors driving the diagnostic landscape.</p>
+            <div class="report-card-actions">
+              <button class="btn-sample"><i class="fa-solid fa-file-pdf"></i> Free Sample</button>
+              <button class="btn-enquiry"><i class="fa-solid fa-envelope"></i> Enquiry Now</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="report-card" data-category="technology">
+          <div class="report-card-img-wrap">
+            <img src="https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=600&q=80" alt="AI Market" class="report-card-img">
+            <span class="report-card-badge">Technology</span>
+          </div>
+          <div class="report-card-body">
+            <div class="report-card-meta">
+              <span><i class="fa-regular fa-calendar"></i> November 2025</span>
+              <span><i class="fa-regular fa-file-lines"></i> 275 Pages</span>
+            </div>
+            <h3 class="report-card-title">Global Artificial Intelligence Market 2025-2030</h3>
+            <p class="report-card-desc">Deep analysis of AI adoption across industries. Includes market size, growth forecasts, investment trends, and key vendor competitive landscape.</p>
+            <div class="report-card-actions">
+              <button class="btn-sample"><i class="fa-solid fa-file-pdf"></i> Free Sample</button>
+              <button class="btn-enquiry"><i class="fa-solid fa-envelope"></i> Enquiry Now</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="report-card" data-category="energy">
+          <div class="report-card-img-wrap">
+            <img src="https://images.unsplash.com/photo-1466611653911-95081537e5b7?auto=format&fit=crop&w=600&q=80" alt="Renewable Energy" class="report-card-img">
+            <span class="report-card-badge">Energy</span>
+          </div>
+          <div class="report-card-body">
+            <div class="report-card-meta">
+              <span><i class="fa-regular fa-calendar"></i> October 2025</span>
+              <span><i class="fa-regular fa-file-lines"></i> 340 Pages</span>
+            </div>
+            <h3 class="report-card-title">Global Renewable Energy Market Outlook</h3>
+            <p class="report-card-desc">Covers solar, wind, hydro, and emerging clean energy segments. Regional market breakdowns with 10-year investment and capacity forecasts.</p>
+            <div class="report-card-actions">
+              <button class="btn-sample"><i class="fa-solid fa-file-pdf"></i> Free Sample</button>
+              <button class="btn-enquiry"><i class="fa-solid fa-envelope"></i> Enquiry Now</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="report-card" data-category="automotive">
+          <div class="report-card-img-wrap">
+            <img src="https://images.unsplash.com/photo-1492144534655-ae79c964c9d7?auto=format&fit=crop&w=600&q=80" alt="Electric Vehicles" class="report-card-img">
+            <span class="report-card-badge">Automotive</span>
+          </div>
+          <div class="report-card-body">
+            <div class="report-card-meta">
+              <span><i class="fa-regular fa-calendar"></i> December 2025</span>
+              <span><i class="fa-regular fa-file-lines"></i> 299 Pages</span>
+            </div>
+            <h3 class="report-card-title">Electric Vehicle (EV) Market Intelligence Report</h3>
+            <p class="report-card-desc">Comprehensive analysis of global EV adoption, charging infrastructure growth, major OEM competitive positioning, and consumer trends by 2030.</p>
+            <div class="report-card-actions">
+              <button class="btn-sample"><i class="fa-solid fa-file-pdf"></i> Free Sample</button>
+              <button class="btn-enquiry"><i class="fa-solid fa-envelope"></i> Enquiry Now</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="report-card" data-category="ict">
+          <div class="report-card-img-wrap">
+            <img src="https://images.unsplash.com/photo-1555664424-778a1e5e1b48?auto=format&fit=crop&w=600&q=80" alt="Semiconductor" class="report-card-img">
+            <span class="report-card-badge">ICT</span>
+          </div>
+          <div class="report-card-body">
+            <div class="report-card-meta">
+              <span><i class="fa-regular fa-calendar"></i> January 2026</span>
+              <span><i class="fa-regular fa-file-lines"></i> 315 Pages</span>
+            </div>
+            <h3 class="report-card-title">Global Semiconductor Market Forecast 2026</h3>
+            <p class="report-card-desc">Emerging trends in chip design, AI semiconductors, supply chain dynamics, and geopolitical impacts on the global semiconductor ecosystem.</p>
+            <div class="report-card-actions">
+              <button class="btn-sample"><i class="fa-solid fa-file-pdf"></i> Free Sample</button>
+              <button class="btn-enquiry"><i class="fa-solid fa-envelope"></i> Enquiry Now</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="report-card" data-category="agriculture">
+          <div class="report-card-img-wrap">
+            <img src="https://images.unsplash.com/photo-1625246333195-78d9c38ad449?auto=format&fit=crop&w=600&q=80" alt="Agriculture" class="report-card-img">
+            <span class="report-card-badge">Agriculture</span>
+          </div>
+          <div class="report-card-body">
+            <div class="report-card-meta">
+              <span><i class="fa-regular fa-calendar"></i> February 2026</span>
+              <span><i class="fa-regular fa-file-lines"></i> 287 Pages</span>
+            </div>
+            <h3 class="report-card-title">AgriTech & Precision Farming Market</h3>
+            <p class="report-card-desc">Analysis of technology adoption in agriculture including drones, IoT sensors, satellite imaging, and AI-driven crop management solutions globally.</p>
+            <div class="report-card-actions">
+              <button class="btn-sample"><i class="fa-solid fa-file-pdf"></i> Free Sample</button>
+              <button class="btn-enquiry"><i class="fa-solid fa-envelope"></i> Enquiry Now</button>
+            </div>
+          </div>
+        </div>
+
+      </div>
 
       <div class="text-center" style="margin-top: 3rem;">
-        <p class="text-light">More reports will be published soon. Check back later or subscribe to our newsletter.</p>
+        <p class="text-light" style="margin-bottom: 1rem;">Showing 6 of 120+ reports. Subscribe for full access or request a specific report.</p>
+        <a href="contact.html" class="btn btn-secondary">Request a Custom Report</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Color Bar Divider -->
+  <div style="height: 6px; background: linear-gradient(90deg, var(--primary-color) 0%, #831843 50%, var(--accent-color) 100%);"></div>
+
+  <!-- Browse by Industry Section -->
+  <section class="section bg-light">
+    <div class="container">
+      <div class="section-header text-center">
+        <div class="section-tag">Browse by Industry</div>
+        <h2>All Industries</h2>
+        <p>Select an industry to explore targeted market research and analysis.</p>
+      </div>
+
+      <div class="industry-browser">
+        <a href="industries.html?q=technology" class="industry-tile">
+          <i class="fa-solid fa-laptop-code"></i>
+          Technology & IT
+        </a>
+        <a href="industries.html?q=healthcare" class="industry-tile">
+          <i class="fa-solid fa-heart-pulse"></i>
+          Healthcare
+        </a>
+        <a href="industries.html?q=energy" class="industry-tile">
+          <i class="fa-solid fa-bolt"></i>
+          Energy & Power
+        </a>
+        <a href="industries.html?q=automotive" class="industry-tile">
+          <i class="fa-solid fa-car"></i>
+          Automotive
+        </a>
+        <a href="industries.html?q=agriculture" class="industry-tile">
+          <i class="fa-solid fa-seedling"></i>
+          Agriculture
+        </a>
+        <a href="industries.html?q=aerospace" class="industry-tile">
+          <i class="fa-solid fa-rocket"></i>
+          Aerospace &amp; Defense
+        </a>
+        <a href="industries.html?q=construction" class="industry-tile">
+          <i class="fa-solid fa-helmet-safety"></i>
+          Construction
+        </a>
+        <a href="industries.html?q=consumer" class="industry-tile">
+          <i class="fa-solid fa-bag-shopping"></i>
+          Consumer Goods
+        </a>
+        <a href="industries.html?q=foods" class="industry-tile">
+          <i class="fa-solid fa-utensils"></i>
+          Foods &amp; Beverages
+        </a>
+        <a href="industries.html?q=ict" class="industry-tile">
+          <i class="fa-solid fa-microchip"></i>
+          ICT &amp; Semiconductor
+        </a>
+        <a href="industries.html?q=mining" class="industry-tile">
+          <i class="fa-solid fa-hammer"></i>
+          Mining &amp; Metals
+        </a>
+        <a href="industries.html?q=manufacturing" class="industry-tile">
+          <i class="fa-solid fa-industry"></i>
+          Manufacturing
+        </a>
+        <a href="industries.html?q=chemicals" class="industry-tile">
+          <i class="fa-solid fa-flask"></i>
+          Chemicals
+        </a>
+        <a href="industries.html?q=telecom" class="industry-tile">
+          <i class="fa-solid fa-tower-cell"></i>
+          Telecom
+        </a>
       </div>
     </div>
   </section>
@@ -151,11 +554,9 @@
       <div class="footer-grid">
         <div class="footer-brand">
           <a href="index.html" class="logo">
-            <img src="images/SI logo.svg" alt="Strativa Intelligence"
-              style="height: 48px; width: auto; filter: brightness(0) invert(1);">
+            <img src="images/SI logo.svg" alt="Strativa Intelligence" style="height: 48px; width: auto; filter: brightness(0) invert(1);">
           </a>
-          <p class="mt-2 text-gray">Power your decisions with trusted, data-driven market intelligence and tailored
-            consulting.</p>
+          <p class="mt-2 text-gray">Power your decisions with trusted, data-driven market intelligence and tailored consulting.</p>
         </div>
         <div>
           <h4 class="footer-heading">Company</h4>
@@ -190,6 +591,32 @@
   </footer>
 
   <script src="script.js"></script>
+  <script>
+    let activeFilter = 'all';
+
+    function setFilter(category, btn) {
+      activeFilter = category;
+      document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      filterReports();
+    }
+
+    function filterReports() {
+      const search = document.getElementById('reportSearch').value.toLowerCase();
+      document.querySelectorAll('.report-card').forEach(card => {
+        const cat = card.dataset.category;
+        const title = card.querySelector('.report-card-title').textContent.toLowerCase();
+        const desc = card.querySelector('.report-card-desc').textContent.toLowerCase();
+        const matchesFilter = activeFilter === 'all' || cat === activeFilter;
+        const matchesSearch = !search || title.includes(search) || desc.includes(search) || cat.includes(search);
+        card.style.display = (matchesFilter && matchesSearch) ? '' : 'none';
+      });
+    }
+
+    document.getElementById('reportSearch').addEventListener('keyup', e => {
+      if (e.key === 'Enter') filterReports();
+    });
+  </script>
 </body>
 
 </html>
