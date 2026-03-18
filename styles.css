@@ -87,6 +87,9 @@ img {
   text-align: center;
 }
 
+.bg-w{
+  background: linear-gradient(135deg, #dddf6e 0%, #e9ebd4 45%, #d4e769 100%);
+}
 .text-accent {
   color: var(--accent-color);
 }
@@ -1203,8 +1206,9 @@ h3 {
 }
 
 .footer-brand .logo img {
-  height: 45px !important;
+  height: 150px !important;
   width: auto;
+  margin: 0px;
   min-height: 0;
   margin-bottom: 1rem;
 }
