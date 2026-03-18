@@ -200,6 +200,7 @@ h3 {
   display: flex;
   gap: 2.5rem;
   align-items: center;
+  height: 80px;
 }
 
 .nav-links a {
@@ -209,6 +210,15 @@ h3 {
   position: relative;
   padding-bottom: 0.25rem;
   transition: color 0.3s ease;
+}
+
+.nav-links > a,
+.nav-item > a {
+  display: inline-flex;
+  align-items: center;
+  height: 80px;
+  padding-bottom: 0;
+  line-height: 1;
 }
 
 .nav-links a::after {
@@ -249,7 +259,10 @@ h3 {
 /* Dropdown Navigation */
 .nav-item {
   position: relative;
-  padding: 1.5rem 0;
+  padding: 0;
+  height: 80px;
+  display: flex;
+  align-items: center;
 }
 
 .dropdown-menu {
@@ -728,39 +741,31 @@ h3 {
 .industries-premium-section {
   position: relative;
   overflow: hidden;
-  background:
-    radial-gradient(circle at 12% 20%, rgba(212, 175, 55, 0.18), transparent 36%),
-    radial-gradient(circle at 84% 82%, rgba(30, 64, 175, 0.2), transparent 34%),
-    linear-gradient(180deg, #eef2f7 0%, #dfe7f0 48%, #cbd5e1 100%);
+  background: linear-gradient(135deg, #192b41 0%, #182b41 45%, #60a5fa 100%);
 }
 
 .industries-premium-section::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  pointer-events: none;
-  background-image:
-    linear-gradient(110deg, rgba(255, 255, 255, 0.56) 0%, rgba(255, 255, 255, 0) 42%),
-    repeating-linear-gradient(
-      -35deg,
-      rgba(100, 116, 139, 0.2) 0,
-      rgba(100, 116, 139, 0.2) 1px,
-      transparent 1px,
-      transparent 13px
-    );
+  content: none;
 }
 
 .industries-premium-section::after {
-  content: '';
-  position: absolute;
-  inset: 0;
-  pointer-events: none;
-  background: linear-gradient(180deg, rgba(15, 23, 42, 0.06) 0%, rgba(15, 23, 42, 0.14) 100%);
+  content: none;
 }
 
 .industries-premium-section .container {
   position: relative;
   z-index: 1;
+}
+
+.industries-premium-section .section-tag {
+  color: #ffffff;
+  background-color: rgba(255, 255, 255, 0.18);
+  border: 1px solid rgba(255, 255, 255, 0.35);
+}
+
+.industries-premium-section .section-header h2,
+.industries-premium-section .section-header p {
+  color: #ffffff;
 }
 
 .industry-grid {
