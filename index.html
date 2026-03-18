@@ -32,8 +32,8 @@
       <div class="top-bar-right">
         <a href="reports.html">Report Store</a>
         <a href="services.html">Consulting</a>
-        <a href="#">Subscription</a>
-        <a href="#">Careers</a>
+        <a href="contact.html">Contact</a>
+
       </div>
     </div>
   </div>
@@ -91,23 +91,34 @@
   </header>
 
   <!-- Hero Section -->
-  <section class="hero">
-    <div class="hero-slider">
-      <div class="hero-slide slide-1"></div>
-      <div class="hero-slide slide-2"></div>
-      <div class="hero-slide slide-3"></div>
+  <!-- Hero Section with Crossfade Slider -->
+  <section class="hero" id="homeHero"
+    style="position: relative; padding: 0; min-height: 650px; overflow: hidden; display: flex; align-items: center;">
+
+    <!-- Background Slides -->
+    <div class="home-slide active" style="background-image: url('images/hero-bg.jpg');"></div>
+    <div class="home-slide" style="background-image: url('images/hero-bg-2.jpg');"></div>
+    <div class="home-slide" style="background-image: url('images/hero-bg-3.jpg');"></div>
+
+    <!-- Dark overlay -->
+    <div
+      style="position: absolute; inset: 0; background: linear-gradient(135deg, rgba(15, 23, 42, 0.85) 0%, rgba(15, 23, 42, 0.65) 100%); z-index: 1;">
     </div>
-    <div class="container">
+
+    <div class="container" style="position: relative; z-index: 5; width: 100%;">
       <div class="hero-content">
         <!-- Search at the top -->
-        <h1 style="font-size: 2.2rem; color: white; margin-bottom: 0.5rem; text-shadow: 0 2px 4px rgba(0,0,0,0.5);">Find Your Market Intelligence</h1>
+        <h1 style="font-size: 2.2rem; color: white; margin-bottom: 0.5rem; text-shadow: 0 2px 4px rgba(0,0,0,0.5);">Find
+          Your Market Intelligence</h1>
         <div class="hero-search-container" style="margin-top: 1rem;">
-          <input type="text" id="mainSearchInput" class="hero-search-input" placeholder="Search for industries, reports, or keywords...">
+          <input type="text" id="mainSearchInput" class="hero-search-input"
+            placeholder="Search for industries, reports, or keywords...">
           <button class="hero-search-btn" onclick="window.location.href='reports.html'">Search</button>
         </div>
 
         <div class="hero-suggestions">
-          <span style="color:#e2e8f0; font-size:0.85rem; font-weight: 500; text-shadow: 0 1px 2px rgba(0,0,0,0.8);">Popular:</span>
+          <span
+            style="color:#e2e8f0; font-size:0.85rem; font-weight: 500; text-shadow: 0 1px 2px rgba(0,0,0,0.8);">Popular:</span>
           <a href="#" class="suggest-tag">Technology &amp; IT</a>
           <a href="#" class="suggest-tag">Healthcare</a>
           <a href="#" class="suggest-tag">Energy</a>
@@ -117,11 +128,11 @@
 
         <script>
           document.querySelectorAll('.suggest-tag').forEach(tag => {
-            tag.addEventListener('click', function(e) {
+            tag.addEventListener('click', function (e) {
               e.preventDefault();
               const term = this.innerText;
               document.getElementById('mainSearchInput').value = term;
-              
+
               const queryMap = {
                 'Technology & IT': 'technology',
                 'Healthcare': 'healthcare',
@@ -129,9 +140,9 @@
                 'Automotive': 'automotive',
                 'Agriculture': 'agriculture'
               };
-              
-              const query = queryMap[term];
-              if(query) {
+
+              const query = queryMap[term.trim()];
+              if (query) {
                 window.location.href = 'industries.html?q=' + query;
               }
             });
@@ -152,11 +163,111 @@
         </div>
       </div>
     </div>
+
+    <!-- Navigation Arrows -->
+    <button onclick="homeSlide(-1)"
+      style="position: absolute; left: 1.5rem; top: 50%; transform: translateY(-50%); z-index: 10; background: rgba(255,255,255,0.15); border: 1.5px solid rgba(255,255,255,0.3); color: white; width: 48px; height: 48px; border-radius: 50%; font-size: 1.25rem; cursor: pointer; backdrop-filter: blur(5px); display: flex; align-items: center; justify-content: center; transition: all 0.3s ease;"
+      onmouseover="this.style.background='rgba(255,255,255,0.3)'"
+      onmouseout="this.style.background='rgba(255,255,255,0.15)'">&#8592;</button>
+    <button onclick="homeSlide(1)"
+      style="position: absolute; right: 1.5rem; top: 50%; transform: translateY(-50%); z-index: 10; background: rgba(255,255,255,0.15); border: 1.5px solid rgba(255,255,255,0.3); color: white; width: 48px; height: 48px; border-radius: 50%; font-size: 1.25rem; cursor: pointer; backdrop-filter: blur(5px); display: flex; align-items: center; justify-content: center; transition: all 0.3s ease;"
+      onmouseover="this.style.background='rgba(255,255,255,0.3)'"
+      onmouseout="this.style.background='rgba(255,255,255,0.15)'">&#8594;</button>
+
+    <!-- Sliders Dots -->
+    <div
+      style="position: absolute; bottom: 2.5rem; left: 50%; transform: translateX(-50%); z-index: 10; display: flex; gap: 0.75rem;">
+      <div class="home-dot active" onclick="goToHomeSlide(0)"></div>
+      <div class="home-dot" onclick="goToHomeSlide(1)"></div>
+      <div class="home-dot" onclick="goToHomeSlide(2)"></div>
+    </div>
+
+    <style>
+      .home-slide {
+        position: absolute;
+        inset: 0;
+        background-size: cover;
+        background-position: center;
+        opacity: 0;
+        transition: opacity 1.5s ease-in-out;
+        z-index: 0;
+      }
+
+      .home-slide.active {
+        opacity: 1;
+        animation: kenBurnsHome 20s linear infinite alternate;
+      }
+
+      @keyframes kenBurnsHome {
+        0% {
+          transform: scale(1);
+        }
+
+        100% {
+          transform: scale(1.12);
+        }
+      }
+
+      .home-dot {
+        width: 14px;
+        height: 14px;
+        border-radius: 50%;
+        background: rgba(255, 255, 255, 0.3);
+        border: 2px solid rgba(255, 255, 255, 0.5);
+        cursor: pointer;
+        transition: all 0.3s ease;
+      }
+
+      .home-dot.active {
+        background: #fff;
+        transform: scale(1.2);
+        box-shadow: 0 0 12px rgba(255, 255, 255, 0.6);
+      }
+    </style>
+
+    <script>
+      (function () {
+        const slides = document.querySelectorAll('.home-slide');
+        const dots = document.querySelectorAll('.home-dot');
+        let current = 0;
+        let timer;
+
+        function showSlide(idx) {
+          slides[current].classList.remove('active');
+          dots[current].classList.remove('active');
+          current = (idx + slides.length) % slides.length;
+          slides[current].classList.add('active');
+          dots[current].classList.add('active');
+        }
+
+        function startTimer() {
+          timer = setInterval(() => {
+            showSlide(current + 1);
+          }, 7000);
+        }
+
+        window.homeSlide = function (dir) {
+          clearInterval(timer);
+          showSlide(current + dir);
+          startTimer();
+        }
+
+        window.goToHomeSlide = function (idx) {
+          clearInterval(timer);
+          showSlide(idx);
+          startTimer();
+        }
+
+        startTimer();
+      })();
+    </script>
   </section>
 
   <!-- Stats Section -->
   <!-- Decorative Top Bar -->
-  <div style="height: 4px; width: 100%; background: linear-gradient(90deg, var(--accent-color) 0%, var(--accent-light) 100%);"></div>
+  <div
+    style="height: 4px; width: 100%; background: linear-gradient(90deg, var(--accent-color) 0%, var(--accent-light) 100%);">
+  </div>
   <section class="stats-section">
     <div class="container">
       <div class="stats-grid">
@@ -264,7 +375,9 @@
       </div>
 
       <div class="industry-grid">
-        <div class="color-bar-accent" style="grid-column: 1 / -1; height: 4px; background: linear-gradient(90deg, var(--accent-light), var(--accent-color)); border-radius: 4px; margin-bottom: 1rem;"></div>
+        <div class="color-bar-accent"
+          style="grid-column: 1 / -1; height: 4px; background: linear-gradient(90deg, var(--accent-light), var(--accent-color)); border-radius: 4px; margin-bottom: 1rem;">
+        </div>
         <a href="industries.html" class="industry-card with-img">
           <img src="https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=600&q=80"
             alt="Technology & IT" class="industry-img">
@@ -301,43 +414,92 @@
         <h2>Worldwide Intelligence</h2>
         <p>Our network spans across borders, delivering insights from key global markets to empower your strategy.</p>
       </div>
-    </div> <!-- Close initial container -->
+    </div>
 
-    <!-- Full width map wrapper below header -->      
-    <div class="map-layout" style="display: block; width: 100vw; position: relative; left: 50%; right: 50%; margin-left: -50vw; margin-right: -50vw;">
-      <div class="map-container" title="Global Reach Map" style="border-radius: 0; padding: 2rem 0; margin-bottom: 0; max-height: 500px; display: flex; align-items: center; justify-content: center; overflow: hidden;">
-        <img src="https://upload.wikimedia.org/wikipedia/commons/e/ec/World_map_blank_without_borders.svg" alt="Global Reach Map" class="map-img" style="opacity: 0.5; filter: invert(1); width: 100%; max-width: 1200px; height: 100%; object-fit: contain;">
+    <!-- Full width map wrapper below header -->
+    <div class="map-layout"
+      style="display: block; width: 100vw; position: relative; left: 50%; right: 50%; margin-left: -50vw; margin-right: -50vw;">
+      <div class="map-container" title="Global Map"
+        style="border-radius: 0; padding: 4rem 0; margin-bottom: 0; max-height: 550px; display: flex; align-items: center; justify-content: center; overflow: hidden; background: #0b1121;">
+        <img src="images/premium-world-map.png" alt="Global Reach Map" class="map-img"
+          style="opacity: 0.7; width: 100%; max-width: 1400px; height: auto; object-fit: contain;">
 
-        <div class="map-marker" style="top: 30%; left: 20%;"></div>
-        <div class="map-marker" style="top: 35%; left: 52%;"></div>
-        <div class="map-marker" style="top: 45%; left: 75%;"></div>
-        <div class="map-marker" style="top: 50%; left: 60%;"></div>
-        <div class="map-marker" style="top: 75%; left: 30%;"></div>
+        <!-- Interactive Markers with simplified tooltips -->
+        <div class="map-marker-v2" style="top: 32%; left: 18%;" data-name="North America"></div>
+        <div class="map-marker-v2" style="top: 30%; left: 48%;" data-name="Europe & UK"></div>
+        <div class="map-marker-v2" style="top: 52%; left: 70%;" data-name="Asia-Pacific (India)"></div>
+        <div class="map-marker-v2" style="top: 38%; left: 78%;" data-name="Asia-Pacific (East Asia)"></div>
+        <div class="map-marker-v2" style="top: 72%; left: 82%;" data-name="Australia"></div>
+        <div class="map-marker-v2" style="top: 65%; left: 32%;" data-name="South America"></div>
+        <div class="map-marker-v2" style="top: 48%; left: 52%;" data-name="Africa & Middle East"></div>
 
-        <svg class="map-lines" viewBox="0 0 100 100" preserveAspectRatio="none">
-          <polyline points="20,30 52,35" class="map-line"></polyline>
-          <polyline points="52,35 60,50 75,45" class="map-line"></polyline>
-          <polyline points="20,30 30,75" class="map-line"></polyline>
-        </svg>
+        <style>
+          .map-marker-v2 {
+            position: absolute;
+            width: 12px;
+            height: 12px;
+            background-color: #D4AF37;
+            border-radius: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 10;
+            cursor: pointer;
+            box-shadow: 0 0 15px rgba(212, 175, 55, 0.8), 0 0 5px rgba(255, 255, 255, 0.5);
+          }
+
+          .map-marker-v2::after {
+            content: attr(data-name);
+            position: absolute;
+            top: -30px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(15, 23, 42, 0.95);
+            color: #fff;
+            padding: 5px 12px;
+            border-radius: 6px;
+            font-size: 12px;
+            font-weight: 600;
+            white-space: nowrap;
+            opacity: 0;
+            pointer-events: none;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+          }
+
+          .map-marker-v2:hover {
+            transform: translate(-50%, -50%) scale(1.3);
+            background-color: #fff;
+          }
+
+          .map-marker-v2:hover::after {
+            opacity: 1;
+            top: -38px;
+          }
+        </style>
       </div>
 
-      <div class="container" style="padding-bottom: 5rem;">
-        <div class="map-content" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 2rem; margin-top: -3rem; position: relative; z-index: 10;">
+      <div class="container" style="padding-top: 4rem; padding-bottom: 5rem;">
+        <div class="map-content"
+          style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 2rem; position: relative; z-index: 10;">
           <div style="grid-column: 1 / -1; margin-bottom: 0.5rem;">
-              <h3 style="font-size: 1.5rem; color: var(--text-dark); text-align: center;">Key Regional Insights</h3>
+            <h3 style="font-size: 1.5rem; color: var(--text-dark); text-align: center;">Key Regional Insights</h3>
           </div>
 
-          <div class="region-card" style="background: white; border-radius: var(--radius-md); padding: 1.5rem; box-shadow: var(--shadow-md);">
+          <div class="region-card"
+            style="background: white; border-radius: var(--radius-md); padding: 1.5rem; box-shadow: var(--shadow-md);">
             <h4 class="text-accent">North America</h4>
-            <p>Direct connections to Silicon Valley innovators, scaling tech startups, and major Fortune 500 headquarters.</p>
+            <p>Direct connections to Silicon Valley innovators, scaling tech startups, and major Fortune 500
+              headquarters.</p>
           </div>
 
-          <div class="region-card" style="background: white; border-radius: var(--radius-md); padding: 1.5rem; box-shadow: var(--shadow-md);">
+          <div class="region-card"
+            style="background: white; border-radius: var(--radius-md); padding: 1.5rem; box-shadow: var(--shadow-md);">
             <h4 class="text-accent">Europe &amp; UK</h4>
             <p>Unmatched regulatory expertise across the EU landscape and in major financial hubs.</p>
           </div>
 
-          <div class="region-card" style="background: white; border-radius: var(--radius-md); padding: 1.5rem; box-shadow: var(--shadow-md);">
+          <div class="region-card"
+            style="background: white; border-radius: var(--radius-md); padding: 1.5rem; box-shadow: var(--shadow-md);">
             <h4 class="text-accent">Asia-Pacific</h4>
             <p>Deep-dive monitoring into rapidly emerging manufacturing sectors and IT ecosystems.</p>
           </div>
@@ -347,31 +509,42 @@
   </section>
 
   <!-- Color Bar Divider -->
-  <div style="height: 6px; width: 100%; background: linear-gradient(90deg, var(--primary-color) 0%, #831843 50%, var(--accent-color) 100%);"></div>
+  <div
+    style="height: 6px; width: 100%; background: linear-gradient(90deg, var(--primary-color) 0%, #831843 50%, var(--accent-color) 100%);">
+  </div>
 
   <!-- CTA -->
   <section class="section cta-section" style="padding: 6rem 0; overflow: hidden;">
-    <div class="container" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 4rem; align-items: center;">
+    <div class="container"
+      style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 4rem; align-items: center;">
       <div style="position: relative; z-index: 10;">
-        <h2 style="color: white; margin-bottom: 1.5rem; text-shadow: 0 2px 4px rgba(0,0,0,0.5);">Ready to Scale Your Business?</h2>
-        <p class="cta-subtitle" style="text-align: left; margin: 0; line-height: 1.6; text-shadow: 0 1px 3px rgba(0,0,0,0.8);">Our team of seasoned analysts, consultants, and research specialists works hand-in-hand
+        <h2 style="color: white; margin-bottom: 1.5rem; text-shadow: 0 2px 4px rgba(0,0,0,0.5);">Ready to Scale Your
+          Business?</h2>
+        <p class="cta-subtitle"
+          style="text-align: left; margin: 0; line-height: 1.6; text-shadow: 0 1px 3px rgba(0,0,0,0.8);">Our team of
+          seasoned analysts, consultants, and research specialists works hand-in-hand
           with your organization empowering you to act with precision and move with confidence.</p>
-        
+
         <div style="margin-top: 2.5rem; display: flex; gap: 1rem;">
-           <div style="display: flex; align-items: center; gap: 0.75rem; color: #fff;">
-              <i class="fa-solid fa-check-circle" style="color: var(--accent-light); font-size: 1.2rem;"></i> <span style="font-weight: 500;">Bespoke Research</span>
-           </div>
-           <div style="display: flex; align-items: center; gap: 0.75rem; color: #fff;">
-              <i class="fa-solid fa-check-circle" style="color: var(--accent-light); font-size: 1.2rem;"></i> <span style="font-weight: 500;">24/7 Support</span>
-           </div>
+          <div style="display: flex; align-items: center; gap: 0.75rem; color: #fff;">
+            <i class="fa-solid fa-check-circle" style="color: var(--accent-light); font-size: 1.2rem;"></i> <span
+              style="font-weight: 500;">Bespoke Research</span>
+          </div>
+          <div style="display: flex; align-items: center; gap: 0.75rem; color: #fff;">
+            <i class="fa-solid fa-check-circle" style="color: var(--accent-light); font-size: 1.2rem;"></i> <span
+              style="font-weight: 500;">24/7 Support</span>
+          </div>
         </div>
       </div>
-      
+
       <div style="position: relative; z-index: 10; display: flex; justify-content: center;">
-        <div style="background: rgba(255, 255, 255, 0.1); backdrop-filter: blur(16px); padding: 3rem; border-radius: var(--radius-lg); border: 1px solid rgba(255, 255, 255, 0.2); text-align: center; box-shadow: 0 15px 35px rgba(0,0,0,0.4); max-width: 400px; width: 100%;">
+        <div
+          style="background: rgba(255, 255, 255, 0.1); backdrop-filter: blur(16px); padding: 3rem; border-radius: var(--radius-lg); border: 1px solid rgba(255, 255, 255, 0.2); text-align: center; box-shadow: 0 15px 35px rgba(0,0,0,0.4); max-width: 400px; width: 100%;">
           <h3 style="color: white; font-size: 1.75rem; margin-bottom: 1rem;">Let's Talk Strategy</h3>
-          <p style="color: #e2e8f0; margin-bottom: 2rem; font-size: 0.95rem;">Contact us directly to discuss how our tailored market intelligence will accelerate your growth.</p>
-          <a href="contact.html" class="btn btn-primary" style="width: 100%; padding: 1rem; font-size: 1.1rem; border-radius: 999px; box-shadow: 0 8px 16px rgba(99, 102, 241, 0.4);">
+          <p style="color: #e2e8f0; margin-bottom: 2rem; font-size: 0.95rem;">Contact us directly to discuss how our
+            tailored market intelligence will accelerate your growth.</p>
+          <a href="contact.html" class="btn btn-primary"
+            style="width: 100%; padding: 1rem; font-size: 1.1rem; border-radius: 999px; box-shadow: 0 8px 16px rgba(99, 102, 241, 0.4);">
             Get In Touch <i class="fa-solid fa-arrow-right" style="margin-left: 0.5rem;"></i>
           </a>
         </div>
