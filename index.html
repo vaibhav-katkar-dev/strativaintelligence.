@@ -319,19 +319,27 @@
       style="display: block; width: 100vw; position: relative; left: 50%; right: 50%; margin-left: -50vw; margin-right: -50vw;">
       <div class="map-container" title="Global Map"
         style="border-radius: 0; padding: 4rem 0; margin-bottom: 0; max-height: 550px; display: flex; align-items: center; justify-content: center; overflow: hidden; background: #0b1121;">
-        <img src="images/premium-world-map.png" alt="Global Reach Map" class="map-img"
-          style="opacity: 0.7; width: 100%; max-width: 1400px; height: auto; object-fit: contain;">
+        <div class="map-stage">
+          <img src="images/premium-world-map.png" alt="Global Reach Map" class="map-img"
+            style="opacity: 0.7; width: 100%; height: auto; object-fit: contain;">
 
-        <!-- Interactive Markers with simplified tooltips -->
-        <div class="map-marker-v2" style="top: 32%; left: 18%;" data-name="North America"></div>
-        <div class="map-marker-v2" style="top: 30%; left: 48%;" data-name="Europe & UK"></div>
-        <div class="map-marker-v2" style="top: 52%; left: 70%;" data-name="Asia-Pacific (India)"></div>
-        <div class="map-marker-v2" style="top: 38%; left: 78%;" data-name="Asia-Pacific (East Asia)"></div>
-        <div class="map-marker-v2" style="top: 72%; left: 82%;" data-name="Australia"></div>
-        <div class="map-marker-v2" style="top: 65%; left: 32%;" data-name="South America"></div>
-        <div class="map-marker-v2" style="top: 48%; left: 52%;" data-name="Africa & Middle East"></div>
+          <!-- Interactive Markers with simplified tooltips -->
+          <div class="map-marker-v2" style="top: 32%; left: 18%;" data-name="North America"></div>
+          <div class="map-marker-v2" style="top: 30%; left: 48%;" data-name="Europe & UK"></div>
+          <div class="map-marker-v2" style="top: 52%; left: 70%;" data-name="Asia-Pacific (India)"></div>
+          <div class="map-marker-v2" style="top: 38%; left: 78%;" data-name="Asia-Pacific (East Asia)"></div>
+          <div class="map-marker-v2" style="top: 72%; left: 82%;" data-name="Australia"></div>
+          <div class="map-marker-v2" style="top: 65%; left: 32%;" data-name="South America"></div>
+          <div class="map-marker-v2" style="top: 48%; left: 52%;" data-name="Africa & Middle East"></div>
+        </div>
 
         <style>
+          .map-stage {
+            position: relative;
+            width: min(100%, 1400px);
+            margin: 0 auto;
+          }
+
           .map-marker-v2 {
             position: absolute;
             width: 12px;
@@ -373,6 +381,18 @@
             opacity: 1;
             top: -38px;
           }
+
+          @media (max-width: 768px) {
+            .map-marker-v2 {
+              width: 10px;
+              height: 10px;
+            }
+
+            .map-marker-v2::after {
+              font-size: 11px;
+              padding: 4px 10px;
+            }
+          }
         </style>
       </div>
 
@@ -401,6 +421,32 @@
             <h4 class="text-accent">Asia-Pacific</h4>
             <p>Deep-dive monitoring into rapidly emerging manufacturing sectors and IT ecosystems.</p>
           </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Trusted Brands / Clients -->
+  <section class="section trusted-brands-section">
+    <div class="container">
+      <div class="section-header text-center">
+        <div class="section-tag">Trusted By</div>
+        <h2>Our Trusted Brands &amp; Clients</h2>
+        <p>We collaborate with ambitious companies across industries. Add your client logos below when ready.</p>
+      </div>
+
+      <div class="brand-logos-grid">
+        <div class="brand-logo-card">
+          <img src="images/client-deloitte.png" alt="Deloitte" class="brand-logo-img">
+        </div>
+        <div class="brand-logo-card">
+          <img src="images/client-bcg.png" alt="Boston Consulting Group" class="brand-logo-img">
+        </div>
+        <div class="brand-logo-card">
+          <img src="images/client-barclays.png" alt="Barclays" class="brand-logo-img">
+        </div>
+        <div class="brand-logo-card">
+          <img src="images/client-abbott.png" alt="Abbott" class="brand-logo-img">
         </div>
       </div>
     </div>
