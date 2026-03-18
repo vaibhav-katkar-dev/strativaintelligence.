@@ -91,14 +91,12 @@
   </header>
 
   <!-- Hero Section -->
-  <!-- Hero Section with Crossfade Slider -->
   <section class="hero" id="homeHero"
     style="position: relative; padding: 0; min-height: 650px; overflow: hidden; display: flex; align-items: center;">
 
-    <!-- Background Slides -->
-    <div class="home-slide active" style="background-image: url('images/hero-bg.jpg');"></div>
-    <div class="home-slide" style="background-image: url('images/hero-bg-2.jpg');"></div>
-    <div class="home-slide" style="background-image: url('images/hero-bg-3.jpg');"></div>
+    <!-- Static Background -->
+    <div
+      style="position: absolute; inset: 0; background: url('images/hero-bg-2.jpg') center/cover no-repeat; z-index: 0;"></div>
 
     <!-- Dark overlay -->
     <div
@@ -162,103 +160,6 @@
       </div>
     </div>
 
-    <!-- Navigation Arrows -->
-    <!-- <button onclick="homeSlide(-1)"
-      style="position: absolute; left: 1.5rem; top: 50%; transform: translateY(-50%); z-index: 10; background: rgba(255,255,255,0.15); border: 1.5px solid rgba(255,255,255,0.3); color: white; width: 48px; height: 48px; border-radius: 50%; font-size: 1.25rem; cursor: pointer; backdrop-filter: blur(5px); display: flex; align-items: center; justify-content: center; transition: all 0.3s ease;"
-      onmouseover="this.style.background='rgba(255,255,255,0.3)'"
-      onmouseout="this.style.background='rgba(255,255,255,0.15)'">&#8592;</button>
-    <button onclick="homeSlide(1)"
-      style="position: absolute; right: 1.5rem; top: 50%; transform: translateY(-50%); z-index: 10; background: rgba(255,255,255,0.15); border: 1.5px solid rgba(255,255,255,0.3); color: white; width: 48px; height: 48px; border-radius: 50%; font-size: 1.25rem; cursor: pointer; backdrop-filter: blur(5px); display: flex; align-items: center; justify-content: center; transition: all 0.3s ease;"
-      onmouseover="this.style.background='rgba(255,255,255,0.3)'"
-      onmouseout="this.style.background='rgba(255,255,255,0.15)'">&#8594;</button> -->
-
-    <!-- Sliders Dots -->
-    <div
-      style="position: absolute; bottom: 2.5rem; left: 50%; transform: translateX(-50%); z-index: 10; display: flex; gap: 0.75rem;">
-      <div class="home-dot active" onclick="goToHomeSlide(0)"></div>
-      <div class="home-dot" onclick="goToHomeSlide(1)"></div>
-      <div class="home-dot" onclick="goToHomeSlide(2)"></div>
-    </div>
-
-    <style>
-      .home-slide {
-        position: absolute;
-        inset: 0;
-        background-size: cover;
-        background-position: center;
-        opacity: 0;
-        transition: opacity 1.5s ease-in-out;
-        z-index: 0;
-      }
-
-      .home-slide.active {
-        opacity: 1;
-        animation: kenBurnsHome 20s linear infinite alternate;
-      }
-
-      @keyframes kenBurnsHome {
-        0% {
-          transform: scale(1);
-        }
-
-        100% {
-          transform: scale(1.12);
-        }
-      }
-
-      .home-dot {
-        width: 14px;
-        height: 14px;
-        border-radius: 50%;
-        background: rgba(255, 255, 255, 0.3);
-        border: 2px solid rgba(255, 255, 255, 0.5);
-        cursor: pointer;
-        transition: all 0.3s ease;
-      }
-
-      .home-dot.active {
-        background: #fff;
-        transform: scale(1.2);
-        box-shadow: 0 0 12px rgba(255, 255, 255, 0.6);
-      }
-    </style>
-
-    <script>
-      (function () {
-        const slides = document.querySelectorAll('.home-slide');
-        const dots = document.querySelectorAll('.home-dot');
-        let current = 0;
-        let timer;
-
-        function showSlide(idx) {
-          slides[current].classList.remove('active');
-          dots[current].classList.remove('active');
-          current = (idx + slides.length) % slides.length;
-          slides[current].classList.add('active');
-          dots[current].classList.add('active');
-        }
-
-        function startTimer() {
-          timer = setInterval(() => {
-            showSlide(current + 1);
-          }, 7000);
-        }
-
-        window.homeSlide = function (dir) {
-          clearInterval(timer);
-          showSlide(current + dir);
-          startTimer();
-        }
-
-        window.goToHomeSlide = function (idx) {
-          clearInterval(timer);
-          showSlide(idx);
-          startTimer();
-        }
-
-        startTimer();
-      })();
-    </script>
   </section>
 
   <!-- Stats Section -->
