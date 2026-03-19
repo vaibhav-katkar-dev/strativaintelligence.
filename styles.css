@@ -975,6 +975,24 @@ h3 {
   font-size: 1.125rem;
   z-index: 2;
   background: var(--bg-color);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+}
+
+.industry-card.with-img .industry-arrow {
+  width: 28px;
+  height: 28px;
+  border-radius: 999px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(212, 175, 55, 0.18);
+  color: #8a6a05;
+  font-size: 0.95rem;
+  line-height: 1;
+  transition: transform 0.25s ease, background-color 0.25s ease, color 0.25s ease;
 }
 
 .industry-card:hover {
@@ -1002,6 +1020,12 @@ h3 {
 
 .industry-card.with-img:hover .industry-title {
   background: linear-gradient(180deg, #f7e2a2 0%, #d4af37 100%);
+  color: #111827;
+}
+
+.industry-card.with-img:hover .industry-arrow {
+  transform: translateX(4px);
+  background: rgba(17, 24, 39, 0.18);
   color: #111827;
 }
 

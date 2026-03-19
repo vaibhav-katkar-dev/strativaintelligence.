@@ -283,6 +283,143 @@
     .reports-search-bar button:hover {
       background: var(--accent-hover);
     }
+
+    /* Request Modal */
+    .lead-modal {
+      position: fixed;
+      inset: 0;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      background: rgba(15, 23, 42, 0.62);
+      z-index: 2000;
+      padding: 1rem;
+    }
+
+    .lead-modal.open {
+      display: flex;
+    }
+
+    .lead-modal-dialog {
+      width: min(640px, 100%);
+      max-height: 92vh;
+      overflow-y: auto;
+      background: #ffffff;
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-lg);
+      box-shadow: var(--shadow-lg);
+    }
+
+    .lead-modal-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+      padding: 1rem 1.25rem;
+      border-bottom: 1px solid var(--border-color);
+    }
+
+    .lead-modal-title {
+      margin: 0;
+      font-size: 1.1rem;
+      color: var(--text-dark);
+      font-family: var(--font-display);
+    }
+
+    .lead-close {
+      width: 34px;
+      height: 34px;
+      border: 1px solid var(--border-color);
+      border-radius: 999px;
+      background: #fff;
+      color: var(--text-dark);
+      font-size: 1.15rem;
+      cursor: pointer;
+      line-height: 1;
+      transition: var(--transition);
+    }
+
+    .lead-close:hover {
+      background: #f8fafc;
+      border-color: var(--accent-color);
+      color: var(--accent-color);
+    }
+
+    .lead-form {
+      padding: 1rem 1.25rem 1.25rem;
+      display: grid;
+      gap: 0.9rem;
+    }
+
+    .lead-form-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 0.85rem;
+    }
+
+    .lead-form-field {
+      display: flex;
+      flex-direction: column;
+      gap: 0.35rem;
+    }
+
+    .lead-form-field.full {
+      grid-column: 1 / -1;
+    }
+
+    .lead-form label {
+      font-size: 0.84rem;
+      font-weight: 600;
+      color: var(--text-dark);
+    }
+
+    .lead-form input,
+    .lead-form select,
+    .lead-form textarea {
+      width: 100%;
+      border: 1.5px solid var(--border-color);
+      border-radius: var(--radius-md);
+      padding: 0.68rem 0.8rem;
+      font-size: 0.92rem;
+      color: var(--text-dark);
+      font-family: var(--font-sans);
+      outline: none;
+      transition: var(--transition);
+      background: #fff;
+    }
+
+    .lead-form input:focus,
+    .lead-form select:focus,
+    .lead-form textarea:focus {
+      border-color: var(--accent-color);
+      box-shadow: 0 0 0 3px var(--accent-light);
+    }
+
+    .lead-form textarea {
+      min-height: 96px;
+      resize: vertical;
+    }
+
+    .lead-submit {
+      border: none;
+      border-radius: var(--radius-md);
+      padding: 0.75rem 1rem;
+      background: var(--primary-color);
+      color: #fff;
+      font-weight: 600;
+      cursor: pointer;
+      transition: var(--transition);
+    }
+
+    .lead-submit:hover {
+      background: var(--primary-light);
+    }
+
+    @media (max-width: 640px) {
+      .lead-form-grid {
+        grid-template-columns: 1fr;
+      }
+    }
   </style>
 </head>
 
@@ -389,6 +526,70 @@
       </div>
     </div>
   </section>
+
+  <!-- Request Form Modal -->
+  <div class="lead-modal" id="leadModal" aria-hidden="true">
+    <div class="lead-modal-dialog" role="dialog" aria-modal="true" aria-labelledby="leadModalTitle">
+      <div class="lead-modal-header">
+        <h3 class="lead-modal-title" id="leadModalTitle">Request for Free Sample</h3>
+        <button type="button" class="lead-close" id="leadModalClose" aria-label="Close form">&times;</button>
+      </div>
+      <form class="lead-form" action="https://api.web3forms.com/submit" method="POST">
+        <input type="hidden" name="access_key" value="f27259e4-e44e-4b95-8a29-ebaaf020531c">
+        <input type="hidden" name="subject" id="leadSubject" value="Request for Free Sample - Strativa Intelligence">
+        <input type="hidden" name="request_type" id="leadRequestType" value="Free Sample">
+
+        <div class="lead-form-grid">
+          <div class="lead-form-field">
+            <label for="leadName">Name</label>
+            <input id="leadName" name="name" type="text" required>
+          </div>
+          <div class="lead-form-field">
+            <label for="leadEmail">Business Email</label>
+            <input id="leadEmail" name="business_email" type="email" required>
+          </div>
+          <div class="lead-form-field">
+            <label for="leadPhone">Contact Number</label>
+            <input id="leadPhone" name="contact_number" type="tel" required>
+          </div>
+          <div class="lead-form-field">
+            <label for="leadDesignation">Designation</label>
+            <input id="leadDesignation" name="designation" type="text" required>
+          </div>
+          <div class="lead-form-field">
+            <label for="leadCompany">Company Name</label>
+            <input id="leadCompany" name="company_name" type="text" required>
+          </div>
+          <div class="lead-form-field">
+            <label for="leadIndustry">Select Industry</label>
+            <select id="leadIndustry" name="industry" required>
+              <option value="" selected disabled>Select industry</option>
+              <option value="Technology & IT">Technology & IT</option>
+              <option value="Healthcare">Healthcare</option>
+              <option value="Energy & Power">Energy & Power</option>
+              <option value="Automotive">Automotive</option>
+              <option value="Agriculture">Agriculture</option>
+              <option value="Aerospace & Defense">Aerospace & Defense</option>
+              <option value="Construction">Construction</option>
+              <option value="Consumer Goods">Consumer Goods</option>
+              <option value="Foods & Beverages">Foods & Beverages</option>
+              <option value="ICT & Semiconductor">ICT & Semiconductor</option>
+              <option value="Mining & Metals">Mining & Metals</option>
+              <option value="Manufacturing">Manufacturing</option>
+              <option value="Chemicals">Chemicals</option>
+              <option value="Telecom">Telecom</option>
+            </select>
+          </div>
+          <div class="lead-form-field full">
+            <label for="leadMessage">Tell us more about your market research areas</label>
+            <textarea id="leadMessage" name="message" placeholder="Share your requirements, goals, and any specific market you want us to cover."></textarea>
+          </div>
+        </div>
+
+        <button type="submit" class="lead-submit">Submit Request</button>
+      </form>
+    </div>
+  </div>
 
   <!-- Color Bar -->
   <div style="height: 4px; background: linear-gradient(90deg, var(--accent-color), var(--primary-color));"></div>
@@ -688,6 +889,57 @@
 
     document.getElementById('reportSearch').addEventListener('keyup', e => {
       if (e.key === 'Enter') filterReports();
+    });
+
+    const leadModal = document.getElementById('leadModal');
+    const leadModalTitle = document.getElementById('leadModalTitle');
+    const leadSubject = document.getElementById('leadSubject');
+    const leadRequestType = document.getElementById('leadRequestType');
+    const leadModalClose = document.getElementById('leadModalClose');
+
+    function openLeadModal(type) {
+      const isSample = type === 'sample';
+      const title = isSample ? 'Request for Free Sample' : 'Enquiry Now';
+      leadModalTitle.textContent = title;
+      leadSubject.value = `${title} - Strativa Intelligence`;
+      leadRequestType.value = isSample ? 'Free Sample' : 'Enquiry';
+      leadModal.classList.add('open');
+      leadModal.setAttribute('aria-hidden', 'false');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeLeadModal() {
+      leadModal.classList.remove('open');
+      leadModal.setAttribute('aria-hidden', 'true');
+      document.body.style.overflow = '';
+    }
+
+    document.querySelectorAll('.btn-sample').forEach(btn => {
+      btn.addEventListener('click', event => {
+        event.preventDefault();
+        openLeadModal('sample');
+      });
+    });
+
+    document.querySelectorAll('.btn-enquiry').forEach(btn => {
+      btn.addEventListener('click', event => {
+        event.preventDefault();
+        openLeadModal('enquiry');
+      });
+    });
+
+    leadModalClose.addEventListener('click', closeLeadModal);
+
+    leadModal.addEventListener('click', event => {
+      if (event.target === leadModal) {
+        closeLeadModal();
+      }
+    });
+
+    document.addEventListener('keydown', event => {
+      if (event.key === 'Escape' && leadModal.classList.contains('open')) {
+        closeLeadModal();
+      }
     });
   </script>
 </body>
