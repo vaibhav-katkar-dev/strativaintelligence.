@@ -248,12 +248,14 @@
     .reports-search-bar {
       display: flex;
       gap: 0.75rem;
+      width: 100%;
       max-width: 600px;
       margin: 0 auto 2.5rem;
     }
 
     .reports-search-bar input {
       flex: 1;
+      min-width: 0;
       padding: 0.9rem 1.25rem;
       border-radius: var(--radius-md);
       border: 1.5px solid var(--border-color);
@@ -282,6 +284,26 @@
 
     .reports-search-bar button:hover {
       background: var(--accent-hover);
+    }
+
+    @media (max-width: 640px) {
+      .reports-search-bar {
+        flex-direction: row;
+        gap: 0.5rem;
+      }
+
+      .reports-search-bar input {
+        padding: 0.8rem 0.9rem;
+        font-size: 0.9rem;
+      }
+
+      .reports-search-bar button {
+        width: auto;
+        flex: 0 0 auto;
+        padding: 0.8rem 0.95rem;
+        font-size: 0.9rem;
+        white-space: nowrap;
+      }
     }
 
     /* Request Modal */
