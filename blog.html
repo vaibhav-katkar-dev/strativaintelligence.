@@ -14,6 +14,7 @@
     rel="stylesheet">
   <link rel="stylesheet" href="styles.css">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link rel="icon" href="images/SI logo.svg" type="image/svg+xml">
   <style>
     .blog-card {
       background: var(--bg-color);
@@ -120,11 +121,11 @@
   </header>
 
   <!-- Page Header -->
-  <section class="section bg-light" style="padding-bottom: 3rem;">
+  <section class="section bg-light" style="padding-bottom: 3rem; background: linear-gradient(135deg, #0f172a 0%, #1e3a8a 45%, #3b82f6 100%) !important;">
     <div class="container">
       <div class="section-header text-center" style="margin-bottom: 0;">
-        <h1>Our Blog</h1>
-        <p>Expert perspectives on emerging trends, disruptive tech, and global economic shifts.</p>
+        <h1 style="color: white !important;">Our Blog</h1>
+        <p style="color: rgba(255, 255, 255, 0.9) !important;">Expert perspectives on emerging trends, disruptive tech, and global economic shifts.</p>
       </div>
     </div>
   </section>
@@ -132,46 +133,47 @@
   <!-- Blog Grid -->
   <section class="section">
     <div class="container">
-      <div class="grid grid-3"
+      <div id="blog-grid" class="grid grid-3"
         style="display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 2.5rem;">
-
-        <!-- Blog 1 -->
-        <div class="blog-card">
-          <div class="blog-img" style="background: linear-gradient(135deg, #e2e8f0, #cbd5e1);">Article Thumbnail</div>
-          <div class="blog-content">
-            <div class="blog-date">March 05, 2026 â€¢ 5 min read</div>
-            <h3 class="blog-title"><a href="#">How GenAI is Reshaping Enterprise Software Delivery</a></h3>
-            <p class="blog-excerpt">We analyze the rapid integration rates of generative AI tools passing through the
-              top Fortune 500 companies in the fiscal quarter.</p>
-            <a href="#" class="text-accent fw-bold" style="font-weight: 600;">Read Article &rarr;</a>
-          </div>
-        </div>
-
-        <!-- Blog 2 -->
-        <div class="blog-card">
-          <div class="blog-img" style="background: linear-gradient(135deg, #e2e8f0, #cbd5e1);">Article Thumbnail</div>
-          <div class="blog-content">
-            <div class="blog-date">Feb 22, 2026 â€¢ 4 min read</div>
-            <h3 class="blog-title"><a href="#">The Approaching Reality of Solid-State EV Batteries</a></h3>
-            <p class="blog-excerpt">Commercial viability insights and manufacturing timelines for the next generation of
-              electric mobility hardware.</p>
-            <a href="#" class="text-accent fw-bold" style="font-weight: 600;">Read Article &rarr;</a>
-          </div>
-        </div>
-
-        <!-- Blog 3 -->
-        <div class="blog-card">
-          <div class="blog-img" style="background: linear-gradient(135deg, #e2e8f0, #cbd5e1);">Article Thumbnail</div>
-          <div class="blog-content">
-            <div class="blog-date">Feb 15, 2026 â€¢ 6 min read</div>
-            <h3 class="blog-title"><a href="#">Global Shifts in DeFi Regulations Throughout 2026</a></h3>
-            <p class="blog-excerpt">Highlighting the crucial crypto and decentralized finance compliance shifts
-              cascading through international markets.</p>
-            <a href="#" class="text-accent fw-bold" style="font-weight: 600;">Read Article &rarr;</a>
-          </div>
-        </div>
-
+        <!-- Blogs will be loaded here dynamicly from blogs.json -->
       </div>
+      
+      <script>
+        document.addEventListener('DOMContentLoaded', () => {
+          const grid = document.getElementById('blog-grid');
+          grid.innerHTML = '<p class="text-center" style="grid-column: 1 / -1; margin: 2rem 0;">Loading blogs...</p>';
+          
+          fetch('https://sheetdb.io/api/v1/kt7npz6frnksv')
+            .then(res => res.json())
+            .then(blogs => {
+              if (!blogs || blogs.length === 0) {
+                grid.innerHTML = '<p class="text-center" style="grid-column: 1 / -1; margin: 2rem 0;">No blogs found.</p>';
+                return;
+              }
+              grid.innerHTML = blogs.map(blog => `
+                <div class="blog-card">
+                  <div class="blog-img" style="background: url('${blog.image}') center/cover no-repeat; height: 200px;"></div>
+                  <div class="blog-content">
+                    <div class="blog-date">
+                      ${blog.category ? `<span style="color: var(--accent-color); font-weight: 500;">${blog.category}</span> &bull; ` : ''}
+                      ${blog.date || ''}
+                    </div>
+                    <h3 class="blog-title" style="margin-bottom: 0.5rem;"><a href="blog-post.html?slug=${blog.slug}">${blog.title}</a></h3>
+                    <p class="blog-excerpt" style="font-size: 0.95rem; line-height: 1.5; margin-bottom: 1rem;">${blog.meta_description || (blog.content ? blog.content.substring(0, 110) + '...' : '')}</p>
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-top: auto; padding-top: 1rem; border-top: 1px solid var(--border-color);">
+                      <div style="font-size: 0.85rem; color: var(--text-light);"><i class="fa-regular fa-user"></i> ${blog.author || 'Strativa'} &bull; <i class="fa-regular fa-clock"></i> ${blog.read_time || '5 min'}</div>
+                      <a href="blog-post.html?slug=${blog.slug}" class="text-accent fw-bold" style="font-weight: 600; color: var(--accent-color); font-size: 0.9rem;">Read &rarr;</a>
+                    </div>
+                  </div>
+                </div>
+              `).join('');
+            })
+            .catch(err => {
+              console.error('Error loading blogs:', err);
+              grid.innerHTML = '<p class="text-center" style="grid-column: 1 / -1; margin: 2rem 0;">Error loading blog posts. Please try again later.</p>';
+            });
+        });
+      </script>
 
       <!-- Newsletter -->
       <div
@@ -221,10 +223,13 @@
         <div>
           <h4 class="footer-heading">Contact</h4>
           <ul class="footer-links">
-            <li class="text-gray">Email: info@strativaintelligence.com</li>
+            <li class="text-gray">Email: strativa.insights@gmail.com</li>
             <li class="text-gray">Phone: +91 80070 66042</li>
             <li class="text-gray">Address: Pune, India</li>
-             <li><a class="footer-social-link" href="https://www.linkedin.com/company/strativa-intelligence/posts/?feedView=all" target="_blank" rel="noopener noreferrer" aria-label="Strativa Intelligence on LinkedIn"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M19 3A2 2 0 0 1 21 5V19A2 2 0 0 1 19 21H5A2 2 0 0 1 3 19V5A2 2 0 0 1 5 3H19M8.34 17.34V10.35H6V17.34H8.34M7.17 9.39A1.35 1.35 0 1 0 7.16 6.69A1.35 1.35 0 0 0 7.17 9.39M18 17.34V13.5C18 11.44 16.9 10.48 15.43 10.48C14.24 10.48 13.7 11.14 13.4 11.6V10.35H11.08C11.11 11.18 11.08 17.34 11.08 17.34H13.4V13.43C13.4 13.22 13.41 13.02 13.48 12.88C13.66 12.47 14.06 12.05 14.74 12.05C15.63 12.05 16 12.73 16 13.73V17.34H18Z" /></svg>Strativa Intelligence</a></li>
+            <li><a class="footer-social-link" href="https://www.linkedin.com/company/strativa-intelligence/" target="_blank" rel="noopener noreferrer"><svg style="width: 20px;" viewBox="0 0 24 24"><path fill="currentColor" d="M19 3A2 2 0 0 1 21 5V19A2 2 0 0 1 19 21H5A2 2 0 0 1 3 19V5A2 2 0 0 1 5 3H19M8.34 17.34V10.35H6V17.34H8.34M7.17 9.39A1.35 1.35 0 1 0 7.16 6.69A1.35 1.35 0 0 0 7.17 9.39M18 17.34V13.5C18 11.44 16.9 10.48 15.43 10.48C14.24 10.48 13.7 11.14 13.4 11.6V10.35H11.08C11.11 11.18 11.08 17.34 11.08 17.34H13.4V13.43C13.4 13.22 13.41 13.02 13.48 12.88C13.66 12.47 14.06 12.05 14.74 12.05C15.63 12.05 16 12.73 16 13.73V17.34H18Z" /></svg> LinkedIn</a></li>
+            <li><a class="footer-social-link" href="#" target="_blank" rel="noopener noreferrer"><i class="fa-brands fa-facebook" style="width: 20px;"></i> Facebook</a></li>
+            <li><a class="footer-social-link" href="#" target="_blank" rel="noopener noreferrer"><i class="fa-brands fa-instagram" style="width: 20px;"></i> Instagram</a></li>
+            <li><a class="footer-social-link" href="#" target="_blank" rel="noopener noreferrer"><i class="fa-brands fa-whatsapp" style="width: 20px;"></i> WhatsApp</a></li>
           </ul>
         </div>
       </div>

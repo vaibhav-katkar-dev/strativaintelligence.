@@ -4,18 +4,77 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description"
-    content="About Us - Discover our mission, vision, and the team driving trusted market intelligence.">
+  <meta name="description" content="Blog Post - Read our latest insights, news, and market intelligence updates.">
   <meta property="og:title" content="Strativa Intelligence | Market Research">
   <meta property="og:description" content="Trusted, data-driven market intelligence and tailored consulting.">
   <meta property="og:type" content="website">
-  <title>About Us | Market Intelligence &amp; Consulting</title>
+  <title>Blog Post | Market Intelligence & Consulting</title>
   <link
     href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Outfit:wght@400;500;600;700&display=swap"
     rel="stylesheet">
   <link rel="stylesheet" href="styles.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
   <link rel="icon" href="images/SI logo.svg" type="image/svg+xml">
+  <style>
+    .single-blog-header {
+      margin-bottom: 2rem;
+    }
+    .single-blog-title {
+      font-size: 2.25rem;
+      margin-bottom: 1rem;
+      color: var(--text-dark);
+      line-height: 1.3;
+    }
+    .single-blog-meta {
+      color: var(--text-light);
+      margin-bottom: 1.5rem;
+      font-size: 0.95rem;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .single-blog-image {
+      width: 100%;
+      max-height: 500px;
+      object-fit: cover;
+      border-radius: var(--radius-lg);
+      margin-bottom: 2.5rem;
+      background: var(--bg-shade);
+      border: 1px solid var(--border-color);
+    }
+    .single-blog-content {
+      font-size: 1.125rem;
+      line-height: 1.8;
+      color: var(--text-base);
+      font-family: 'Inter', sans-serif;
+    }
+    .single-blog-content p {
+      margin-bottom: 1.5rem;
+    }
+    .single-blog-content h2, .single-blog-content h3 {
+      color: var(--text-dark);
+      margin-top: 2.5rem;
+      margin-bottom: 1rem;
+    }
+    .loader {
+      display: inline-block;
+      width: 40px;
+      height: 40px;
+      border: 4px solid var(--border-color);
+      border-radius: 50%;
+      border-top-color: var(--accent-color);
+      animation: spin 1s ease-in-out infinite;
+      margin-bottom: 1rem;
+    }
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+    .loading-container {
+      text-align: center;
+      padding: 4rem 0;
+    }
+  </style>
 </head>
 
 <body>
@@ -33,7 +92,7 @@
       </button>
       <nav class="nav-links" id="navLinks">
         <a href="index.html">Home</a>
-        <a href="about.html" class="active">About</a>
+        <a href="about.html">About</a>
         <div class="nav-item">
           <a href="industries.html">Industries ▾</a>
           <div class="dropdown-menu">
@@ -60,118 +119,95 @@
     </div>
   </header>
 
-  <!-- Page Header -->
-  <section class="section page-header-dark" style="padding-bottom: 3rem;">
-    <div class="container">
-      <div class="section-header text-center" style="margin-bottom: 0;">
-        <h1>About Us</h1>
-        <p>Learn more about our mission, vision, and the passion that drives us to deliver the best market insights.</p>
+  <!-- Single Blog Content Section -->
+  <section class="section" style="padding-top: 8rem; padding-bottom: 4rem; min-height: 60vh;">
+    <div class="container" style="max-width: 800px;">
+      
+      <div id="blog-container">
+        <div class="loading-container">
+          <div class="loader"></div>
+          <p class="text-base">Loading article...</p>
+        </div>
       </div>
+
+      <script>
+        document.addEventListener('DOMContentLoaded', () => {
+          const params = new URLSearchParams(window.location.search);
+          const slug = params.get("slug");
+          const container = document.getElementById("blog-container");
+
+          if (!slug) {
+            container.innerHTML = '<div class="text-center" style="padding: 4rem 0;"><h3>No blog specified.</h3><a href="blog.html" class="btn btn-primary mt-4">Return to Blog</a></div>';
+            return;
+          }
+
+          fetch(`https://sheetdb.io/api/v1/kt7npz6frnksv/search?slug=${slug}`)
+            .then(res => res.json())
+            .then(data => {
+              if (!data || data.length === 0) {
+                container.innerHTML = '<div class="text-center" style="padding: 4rem 0;"><h3>Blog post not found.</h3><a href="blog.html" class="btn btn-primary mt-4">Return to Blog</a></div>';
+                return;
+              }
+
+              const blog = data[0];
+              
+              // SEO Enhancements
+              document.title = (blog.seo_title || blog.title) + " | Strativa Intelligence";
+              const metaDesc = document.querySelector('meta[name="description"]');
+              if (metaDesc && (blog.meta_description || blog.content)) {
+                metaDesc.content = blog.meta_description || blog.content.substring(0, 150) + "...";
+              }
+
+              // Parse as Markdown using Marked.js allows rendering headings, bold texts properly structured for SEO inside the single-blog-content container
+              const formattedContent = blog.content ? marked.parse(blog.content) : '<p>No content available.</p>';
+
+              container.innerHTML = `
+                <div class="single-blog-header">
+                  ${blog.category ? `<div style="color: var(--accent-color); font-weight: 600; text-transform: uppercase; letter-spacing: 1px; font-size: 0.875rem; margin-bottom: 0.5rem;">${blog.category}</div>` : ''}
+                  <h1 class="single-blog-title">${blog.title}</h1>
+                  <div class="single-blog-meta">
+                    <span><i class="fa-regular fa-user"></i> ${blog.author || 'Strativa Team'}</span>
+                    <span>&bull;</span>
+                    <span><i class="fa-regular fa-calendar"></i> ${blog.date || ''}</span>
+                    <span>&bull;</span>
+                    <span><i class="fa-regular fa-clock"></i> ${blog.read_time || '5 min read'}</span>
+                  </div>
+                </div>
+                ${blog.image ? `<img src="${blog.image}" alt="${blog.title}" class="single-blog-image" onerror="this.style.display='none'" />` : ''}
+                <div class="single-blog-content">
+                  ${formattedContent}
+                </div>
+                <div style="margin-top: 4rem; padding-top: 2rem; border-top: 1px solid var(--border-color); display: flex; justify-content: space-between; align-items: center;">
+                  <a href="blog.html" class="btn btn-outline" style="display: inline-flex; align-items: center; gap: 8px;">
+                    <i class="fa-solid fa-arrow-left"></i> Back to Blog
+                  </a>
+                </div>
+              `;
+            })
+            .catch(err => {
+              console.error('Error fetching blog:', err);
+              container.innerHTML = '<div class="text-center" style="padding: 4rem 0;"><h3>Error loading article.</h3><p>Please try again later.</p><a href="blog.html" class="btn btn-primary mt-4">Return to Blog</a></div>';
+            });
+        });
+      </script>
+
     </div>
   </section>
 
-  <!-- Mission & Vision -->
-  <section class="section">
+  <!-- Newsletter -->
+  <section class="section pt-0">
     <div class="container">
-      <div class="split-layout">
-        <div class="split-image">
-          <img src="https://images.unsplash.com/photo-1521737604893-d14cc237f11d?auto=format&fit=crop&w=900&q=80"
-            alt="Our professional research team collaborating"
-            style="width: 100%; height: 450px; object-fit: cover; border-radius: 12px; box-shadow: var(--shadow-lg); border: 1px solid var(--border-color);">
-        </div>
-        <div class="split-content">
-          <div class="section-tag">About Strativa Intelligence</div>
-          <h2>Research That Drives <span class="text-accent">Strategic Insight</span>.</h2>
-          <p>Strativa Intelligence was founded with a simple idea: organizations make better decisions when they have
-            access to clear, reliable market intelligence.</p>
-          <p>We specialize in delivering high-quality market research, industry analysis, and competitive intelligence
-            that helps companies understand how markets evolve and where new opportunities may emerge.</p>
-          <p>Our analysts examine market dynamics, technological developments, competitive strategies, and emerging
-            industry trends to provide organizations with a deeper understanding of their operating environment.</p>
-
-          <h3 class="mt-4">Our Mission</h3>
-          <p>At Strativa Intelligence, our mission is to transform data into intelligence and intelligence into
-            strategic advantage.</p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Research Methodology -->
-  <!-- <section class="section  bg-w" style="background: linear-gradient(135deg, #dddf6e 0%, #e9ebd4 45%, #d4e769 100%);">
-    <div class="container">
-      <div class="section-header text-center">
-        <div class="section-tag">Research Methodology</div>
-        <h2>A Structured Approach to Market Intelligence</h2>
-        <p>At Strativa Intelligence, every research project follows a structured analytical framework designed to ensure
-          accuracy, reliability, and relevance.</p>
-      </div>
-
-      <div class="services-grid">
-        <div class="service-card" style="box-shadow: var(--shadow-sm);">
-          <h3>Primary Research</h3>
-          <p>Direct interviews, surveys, and expert insights from industry participants.</p>
-        </div>
-        <div class="service-card" style="box-shadow: var(--shadow-sm);">
-          <h3>Secondary Research</h3>
-          <p>Analysis of industry publications, company reports, market studies, and public data sources.</p>
-        </div>
-        <div class="service-card" style="box-shadow: var(--shadow-sm);">
-          <h3>Data Analysis</h3>
-          <p>Evaluation of quantitative market data, economic indicators, and industry metrics.</p>
-        </div>
-        <div class="service-card" style="box-shadow: var(--shadow-sm);">
-          <h3>Trend Identification</h3>
-          <p>Identification of emerging trends, technological shifts, and evolving market patterns.</p>
-        </div>
-        <div class="service-card" style="box-shadow: var(--shadow-sm);">
-          <h3>Strategic Insight Development</h3>
-          <p>Transforming research findings into clear insights that support strategic decision-making.</p>
-        </div>
-      </div>
-      <div class="text-center mt-4">
-        <p class="text-light">This rigorous process ensures our research delivers practical intelligence rather than
-          just raw data.</p>
-      </div>
-    </div>
-  </section> -->
-
-  <!-- Why Strativa Intelligence -->
-  <section class="section">
-    <div class="container text-center" style="max-width: 800px;">
-      <div class="section-tag">Why Strativa Intelligence</div>
-      <h2>Trusted Intelligence for Strategic Growth</h2>
-      <p style="margin-bottom: 2rem;">Organizations choose Strativa Intelligence because we focus on delivering research
-        that is objective, structured, and actionable.</p>
-
       <div
-        style="display: flex; flex-direction: column; gap: 1rem; text-align: left; margin: 0 auto; max-width: 400px; margin-bottom: 2rem;">
-        <div style="display: flex; gap: 1rem; align-items: center;">
-          <span style="color: var(--accent-color); font-weight: bold;">✔</span>
-          <span>Independent research and analysis</span>
-        </div>
-        <div style="display: flex; gap: 1rem; align-items: center;">
-          <span style="color: var(--accent-color); font-weight: bold;">✔</span>
-          <span>Data-driven market intelligence</span>
-        </div>
-        <div style="display: flex; gap: 1rem; align-items: center;">
-          <span style="color: var(--accent-color); font-weight: bold;">✔</span>
-          <span>Deep industry understanding</span>
-        </div>
-        <div style="display: flex; gap: 1rem; align-items: center;">
-          <span style="color: var(--accent-color); font-weight: bold;">✔</span>
-          <span>Structured research methodologies</span>
-        </div>
-        <div style="display: flex; gap: 1rem; align-items: center;">
-          <span style="color: var(--accent-color); font-weight: bold;">✔</span>
-          <span>Clear strategic insights</span>
-        </div>
+        style="background: var(--primary-color); color: white; padding: 3rem; border-radius: var(--radius-lg); text-align: center;">
+        <h2 class="text-white" style="margin-bottom: 1rem;">Subscribe to Our Newsletter</h2>
+        <p style="color: #cbd5e1; margin-bottom: 2rem;">Get our latest market insights and report releases delivered
+          directly to your inbox.</p>
+        <form style="display: flex; gap: 1rem; max-width: 500px; margin: 0 auto; justify-content: center;">
+          <input type="email" placeholder="Your work email..." required
+            style="padding: 0.875rem 1.5rem; border-radius: var(--radius-md); border: none; width: 100%; outline: none;">
+          <button type="submit" class="btn btn-primary" style="white-space: nowrap;">Subscribe</button>
+        </form>
       </div>
-
-      <p class="text-accent" style="font-weight: 600; font-size: 1.25rem;">Our goal is simple: to provide intelligence
-        that helps organizations move forward with clarity and confidence.</p>
-    </div>
-    </div>
     </div>
   </section>
 
