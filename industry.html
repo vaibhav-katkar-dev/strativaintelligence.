@@ -1,0 +1,611 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Industry Details - Comprehensive market research and insights.">
+  <meta property="og:title" content="Strativa Intelligence | Industry Insight">
+  <meta property="og:description" content="Trusted, data-driven market intelligence and tailored consulting.">
+  <meta property="og:type" content="website">
+  <title>Industry Details | Market Intelligence & Consulting</title>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Outfit:wght@400;500;600;700&display=swap"
+    rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <style>
+    /* Lead Modal Styles from Reports Page */
+    .lead-modal {
+      position: fixed;
+      inset: 0;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      background: rgba(15, 23, 42, 0.62);
+      z-index: 2000;
+      padding: 1rem;
+    }
+
+    .lead-modal.open {
+      display: flex;
+    }
+
+    .lead-modal-dialog {
+      width: min(640px, 100%);
+      max-height: 92vh;
+      overflow-y: auto;
+      background: #ffffff;
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-lg);
+      box-shadow: var(--shadow-lg);
+    }
+
+    .lead-modal-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+      padding: 1rem 1.25rem;
+      border-bottom: 1px solid var(--border-color);
+    }
+
+    .lead-modal-title {
+      margin: 0;
+      font-size: 1.1rem;
+      color: var(--text-dark);
+      font-family: var(--font-display);
+    }
+
+    .lead-close {
+      width: 34px;
+      height: 34px;
+      border: 1px solid var(--border-color);
+      border-radius: 999px;
+      background: #fff;
+      color: var(--text-dark);
+      font-size: 1.15rem;
+      cursor: pointer;
+      line-height: 1;
+      transition: var(--transition);
+    }
+
+    .lead-close:hover {
+      background: #f8fafc;
+      border-color: var(--accent-color);
+      color: var(--accent-color);
+    }
+
+    .lead-form {
+      padding: 1rem 1.25rem 1.25rem;
+      display: grid;
+      gap: 0.9rem;
+    }
+
+    .lead-form-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 0.85rem;
+    }
+
+    .lead-form-field {
+      display: flex;
+      flex-direction: column;
+      gap: 0.35rem;
+    }
+
+    .lead-form-field.full {
+      grid-column: 1 / -1;
+    }
+
+    .lead-form label {
+      font-size: 0.84rem;
+      font-weight: 600;
+      color: var(--text-dark);
+    }
+
+    .lead-form input,
+    .lead-form select,
+    .lead-form textarea {
+      width: 100%;
+      border: 1.5px solid var(--border-color);
+      border-radius: var(--radius-md);
+      padding: 0.68rem 0.8rem;
+      font-size: 0.92rem;
+      color: var(--text-dark);
+      font-family: var(--font-sans);
+      outline: none;
+      transition: var(--transition);
+      background: #fff;
+    }
+
+    .lead-form input:focus,
+    .lead-form select:focus,
+    .lead-form textarea:focus {
+      border-color: var(--accent-color);
+      box-shadow: 0 0 0 3px var(--accent-light);
+    }
+
+    .lead-form textarea {
+      min-height: 96px;
+      resize: vertical;
+    }
+
+    .lead-submit {
+      border: none;
+      border-radius: var(--radius-md);
+      padding: 0.75rem 1rem;
+      background: var(--primary-color);
+      color: #fff;
+      font-weight: 600;
+      cursor: pointer;
+      transition: var(--transition);
+    }
+
+    .lead-submit:hover {
+      background: var(--primary-light);
+    }
+
+    @media (max-width: 640px) {
+      .lead-form-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    /* Industry Card Button styles to match reports page */
+    .btn-sample-report {
+      flex: 1;
+      padding: 0.6rem 1rem;
+      border-radius: var(--radius-md);
+      font-size: 0.85rem;
+      font-weight: 600;
+      text-align: center;
+      cursor: pointer;
+      transition: var(--transition);
+      border: 1.5px solid var(--accent-color);
+      background: transparent;
+      color: var(--accent-color);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-decoration: none;
+      width: 100%;
+    }
+
+    .btn-sample-report:hover {
+      background: var(--accent-color);
+      color: white;
+    }
+
+    .btn-enquiry-report {
+      flex: 1;
+      padding: 0.6rem 1rem;
+      border-radius: var(--radius-md);
+      font-size: 0.85rem;
+      font-weight: 600;
+      text-align: center;
+      cursor: pointer;
+      transition: var(--transition);
+      border: 1.5px solid var(--primary-color);
+      background: var(--primary-color);
+      color: white;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-decoration: none;
+      width: 100%;
+    }
+
+    .btn-enquiry-report:hover {
+      background: var(--primary-light);
+      border-color: var(--primary-light);
+    }
+  </style>
+  <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+  <link rel="icon" href="images/SI logo.svg" type="image/svg+xml">
+  <style>
+    .loader {
+      display: inline-block;
+      width: 40px;
+      height: 40px;
+      border: 4px solid var(--border-color);
+      border-radius: 50%;
+      border-top-color: var(--accent-color);
+      animation: spin 1s ease-in-out infinite;
+      margin-bottom: 1rem;
+    }
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+    .loading-container {
+      text-align: center;
+      padding: 6rem 0;
+    }
+    .industry-content-container p {
+      margin-bottom: 1.5rem;
+      font-size: 1.125rem;
+      line-height: 1.8;
+      color: var(--text-base);
+    }
+    .industry-content-container h2, .industry-content-container h3 {
+      color: var(--text-dark);
+      margin-top: 2.5rem;
+      margin-bottom: 1rem;
+    }
+    .industry-content-container ul {
+      list-style-type: disc;
+      margin-left: 1.5rem;
+      margin-bottom: 2rem;
+    }
+    .industry-content-container li {
+      margin-bottom: 0.5rem;
+      font-size: 1.125rem;
+      color: var(--text-base);
+    }
+  </style>
+</head>
+
+<body class="industry-detail-page">
+
+  <!-- Top Bar -->
+  <div class="top-bar">
+    <div class="container top-bar-container">
+      <div class="top-bar-left">
+        <a href="mailto:strativa.insights@gmail.com"><i class="fa-solid fa-envelope"></i>
+          strativa.insights@gmail.com</a>
+        <a href="tel:+918007066042"><i class="fa-solid fa-phone"></i> +91 80070 66042</a>
+      </div>
+      <div class="top-bar-right">
+        <a href="reports.html">Report Store</a>
+        <a href="services.html">Consulting</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Header & Navigation -->
+  <header class="header">
+    <div class="container nav-container">
+      <a href="index.html" class="logo">
+        <img src="images/SI logo.svg" alt="Strativa Intelligence" style="height: 48px; width: auto;">
+      </a>
+      <button class="nav-toggle" id="navToggle" aria-label="Toggle Navigation">
+        <svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M4 6h16M4 12h16M4 18h16"></path>
+        </svg>
+      </button>
+      <nav class="nav-links" id="navLinks">
+        <a href="index.html">Home</a>
+        <a href="about.html">About</a>
+        <div class="nav-item">
+          <a href="industries.html" class="active">Industries ▾</a>
+          <div class="dropdown-menu">
+            <a href="/industry/technology"><i class="fa-solid fa-laptop-code" style="margin-right:8px; width:16px; text-align:center;"></i> Technology &amp; IT</a>
+            <a href="/industry/healthcare"><i class="fa-solid fa-heart-pulse" style="margin-right:8px; width:16px; text-align:center;"></i> Healthcare</a>
+            <a href="/industry/energy"><i class="fa-solid fa-bolt" style="margin-right:8px; width:16px; text-align:center;"></i> Energy &amp; Power</a>
+            <a href="/industry/automotive"><i class="fa-solid fa-car" style="margin-right:8px; width:16px; text-align:center;"></i> Automotive</a>
+            <a href="/industry/agriculture"><i class="fa-solid fa-seedling" style="margin-right:8px; width:16px; text-align:center;"></i> Agriculture</a>
+            <a href="/industry/aerospace"><i class="fa-solid fa-rocket" style="margin-right:8px; width:16px; text-align:center;"></i> Aerospace &amp; Defense</a>
+            <a href="/industry/construction"><i class="fa-solid fa-helmet-safety" style="margin-right:8px; width:16px; text-align:center;"></i> Construction</a>
+            <a href="/industry/consumer"><i class="fa-solid fa-bag-shopping" style="margin-right:8px; width:16px; text-align:center;"></i> Consumer Goods</a>
+            <a href="/industry/foods"><i class="fa-solid fa-utensils" style="margin-right:8px; width:16px; text-align:center;"></i> Foods &amp; Beverages</a>
+            <a href="/industry/ict"><i class="fa-solid fa-microchip" style="margin-right:8px; width:16px; text-align:center;"></i> ICT &amp; Semiconductor</a>
+            <a href="/industry/mining"><i class="fa-solid fa-hammer" style="margin-right:8px; width:16px; text-align:center;"></i> Mining &amp; Metals</a>
+            <a href="/industry/manufacturing"><i class="fa-solid fa-industry" style="margin-right:8px; width:16px; text-align:center;"></i> Manufacturing</a>
+            <a href="/industry/chemicals"><i class="fa-solid fa-flask" style="margin-right:8px; width:16px; text-align:center;"></i> Chemicals</a>
+            <a href="/industry/telecom"><i class="fa-solid fa-tower-cell" style="margin-right:8px; width:16px; text-align:center;"></i> Telecom</a>
+          </div>
+        </div>
+        <a href="reports.html">Latest Reports</a>
+        <a href="services.html">Services</a>
+        <a href="contact.html">Contact</a>
+      </nav>
+    </div>
+  </header>
+
+  <div id="dynamic-content">
+    <div class="loading-container">
+      <div class="loader"></div>
+      <p class="text-base">Loading industry insights...</p>
+    </div>
+  </div>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const params = new URLSearchParams(window.location.search);
+      let slug = params.get("slug");
+
+      // Fallback: Check path if no slug in query (for Clean URLs like /industry/technology)
+      if (!slug) {
+        const pathParts = window.location.pathname.split('/').filter(p => p !== "");
+        // Search for 'industry' in path parts and take the next part as slug
+        const industryIdx = pathParts.indexOf('industry');
+        if (industryIdx !== -1 && pathParts[industryIdx + 1]) {
+          slug = pathParts[industryIdx + 1].replace('.html', '');
+        } else if (pathParts.length > 0) {
+            // If direct like strativaintelligence.com/technology
+            // This depends on how Vercel is configured, but usually it's /industry/:slug
+        }
+      }
+
+      const container = document.getElementById("dynamic-content");
+
+      if (!slug) {
+        container.innerHTML = '<div class="text-center" style="padding: 6rem 0;"><h3>No industry specified.</h3><a href="industries.html" class="btn btn-primary mt-4">Return to Industries</a></div>';
+        return;
+      }
+
+      // ----------------------------------------------------------------------
+      // Make sure your Google Sheet has these columns: 
+      // slug | title | seo_title | meta_description | hero_image | content
+      // ----------------------------------------------------------------------
+      const sheetDbUrl = `https://sheetdb.io/api/v1/u90teyzi1mge7/search?slug=${slug}`;
+
+      // We wrap the fetch in a try/catch, but for now since you might not have the SheetDB ready,
+      // we'll provide a fallback mockup mechanism if the API fails or returns empty.
+      
+      fetch(sheetDbUrl)
+        .then(res => {
+            if (!res.ok) throw new Error('API not available yet.');
+            return res.json();
+        })
+        .then(data => {
+          if (!data || data.length === 0) {
+            throw new Error('No data found for this slug');
+          }
+          renderIndustry(data[0]);
+        })
+        .catch(err => {
+          console.warn('SheetDB API call failed or not setup. Showing placeholder data for:', slug);
+          
+          // Fallback static data if SheetDB is not yet connected
+          const fallbackData = {
+            title: slug.charAt(0).toUpperCase() + slug.slice(1) + " Industry Analysis",
+            seo_title: slug.charAt(0).toUpperCase() + slug.slice(1) + " Market Intelligence & Trends",
+            meta_description: "Discover in-depth analysis, market trends, and strategic insights for the " + slug + " sector.",
+            hero_image: "https://images.unsplash.com/photo-1451187580459-43490279c0fa?auto=format&fit=crop&w=1920&q=80",
+            content: `
+## Industry Overview
+
+The **${slug.charAt(0).toUpperCase() + slug.slice(1)}** sector is undergoing rapid transformation. Our comprehensive intelligence reports offer deep-dive analytics into emerging trends, disruptive technologies, and evolving consumer demands.
+
+Our research helps organizations navigate complex market landscapes, identify lucrative opportunities, and mitigate potential risks associated with global supply chain shifts and regulatory changes.
+
+### Key Market Drivers
+
+- **Technological Advancements:** Integration of AI and automation driving efficiency.
+- **Sustainability:** Growing emphasis on eco-friendly practices and ESG compliance.
+- **Global Expansion:** Exploring new emerging markets for growth.
+- **Regulatory Frameworks:** Navigating changing compliance and trade policies.
+
+Our team provides bespoke research tailored specifically for your strategic needs, ensuring you stay ahead of the competition.
+            `
+          };
+          renderIndustry(fallbackData);
+        });
+
+      function renderIndustry(industry) {
+        // SEO Meta Updates
+        document.title = (industry.seo_title || industry.title) + " | Strativa Intelligence";
+        const metaDesc = document.querySelector('meta[name="description"]');
+        if (metaDesc && industry.meta_description) {
+          metaDesc.content = industry.meta_description;
+        }
+
+        // Format Markdown content
+        const formattedContent = industry.content ? marked.parse(industry.content) : '<p>Detailed insights coming soon.</p>';
+
+        container.innerHTML = `
+          <!-- Industry Header -->
+          <section class="section bg-primary text-white pt-6 pb-6" style="background: linear-gradient(to bottom, rgba(15, 23, 42, 0.8), rgba(15, 23, 42, 0.95)), url('${industry.hero_image || 'https://images.unsplash.com/photo-1451187580459-43490279c0fa?auto=format&fit=crop&w=1920&q=80'}') center/cover no-repeat; color: white; padding-top: 5rem; padding-bottom: 5rem;">
+            <div class="container" style="max-width: 900px; text-align: center;">
+              <div class="mb-2">
+                <span class="section-tag" style="background: rgba(255,255,255,0.15); color: #fff; margin-bottom: 1rem; border: 1px solid rgba(255,255,255,0.3);">Industry Insights</span>
+              </div>
+              <h1 class="text-white" style="margin-bottom: 1rem; text-shadow: 0 2px 4px rgba(0,0,0,0.5);">${industry.title}</h1>
+              <p style="color: rgba(255,255,255,0.9); font-size: 1.15rem; max-width: 700px; margin: 0 auto; text-shadow: 0 1px 3px rgba(0,0,0,0.5);">${industry.meta_description || 'In-depth market research and strategic intelligence.'}</p>
+            </div>
+          </section>
+
+          <!-- Industry Content -->
+          <section class="section" style="padding-top: 4rem;">
+            <div class="container" style="max-width: 1000px;">
+              <div style="display: grid; grid-template-columns: 1fr; gap: 3rem; align-items: start;">
+                
+                <div style="display: grid; grid-template-columns: 2fr 1fr; gap: 3rem; align-items: start;" class="industry-split">
+                  <!-- Main Content -->
+                  <div class="industry-content-container">
+                    ${formattedContent}
+                  </div>
+
+                  <!-- Sidebar / Purchase area -->
+                  <div>
+                    <div style="position: sticky; top: 100px; background: white; border: 1px solid var(--border-color); border-radius: var(--radius-lg); padding: 1.5rem; box-shadow: var(--shadow-md);">
+                      <h3 style="margin-bottom: 1rem; border-bottom: 1px solid var(--border-color); padding-bottom: 1rem;">Interested in this sector?</h3>
+                      <p style="margin-bottom: 1.5rem; font-size: 0.95rem; color: var(--text-base);">Get access to our premium reports, or request a bespoke research study customized to your exact requirements.</p>
+                      
+                      <button class="btn-enquiry-report" style="margin-bottom: 1rem;" onclick="openLeadModal('${industry.title}', 'Free Sample')">Request Free Sample</button>
+                      <button class="btn-sample-report" onclick="openLeadModal('${industry.title}', 'Enquiry')">Enquiry Now</button>
+                    </div>
+                  </div>
+                </div>
+
+              </div>
+            </div>
+          </section>
+
+          <style>
+            @media (max-width: 768px) {
+              .industry-split {
+                grid-template-columns: 1fr !important;
+              }
+            }
+          </style>
+        `;
+      }
+    });
+  </script>
+
+  <!-- Request Form Modal -->
+  <div class="lead-modal" id="leadModal" aria-hidden="true">
+    <div class="lead-modal-dialog" role="dialog" aria-modal="true" aria-labelledby="leadModalTitle">
+      <div class="lead-modal-header">
+        <h3 class="lead-modal-title" id="leadModalTitle">Request for Free Sample</h3>
+        <button type="button" class="lead-close" id="leadModalClose" aria-label="Close form">&times;</button>
+      </div>
+      <form class="lead-form" action="https://api.web3forms.com/submit" method="POST">
+        <input type="hidden" name="access_key" value="f27259e4-e44e-4b95-8a29-ebaaf020531c">
+        <input type="hidden" name="subject" id="leadSubject" value="Request for Free Sample - Strativa Intelligence">
+        <input type="hidden" name="request_type" id="leadRequestType" value="Free Sample">
+
+        <div class="lead-form-grid">
+          <div class="lead-form-field">
+            <label for="leadName">Name</label>
+            <input id="leadName" name="name" type="text" required>
+          </div>
+          <div class="lead-form-field">
+            <label for="leadEmail">Business Email</label>
+            <input id="leadEmail" name="business_email" type="email" required>
+          </div>
+          <div class="lead-form-field">
+            <label for="leadPhone">Contact Number</label>
+            <input id="leadPhone" name="contact_number" type="tel" required>
+          </div>
+          <div class="lead-form-field">
+            <label for="leadDesignation">Designation</label>
+            <input id="leadDesignation" name="designation" type="text" required>
+          </div>
+          <div class="lead-form-field">
+            <label for="leadCompany">Company Name</label>
+            <input id="leadCompany" name="company_name" type="text" required>
+          </div>
+          <div class="lead-form-field">
+            <label for="leadIndustry">Select Industry</label>
+            <select id="leadIndustry" name="industry" required>
+              <option value="" selected disabled>Select industry</option>
+              <option value="Technology & IT">Technology & IT</option>
+              <option value="Healthcare">Healthcare</option>
+              <option value="Energy & Power">Energy & Power</option>
+              <option value="Automotive">Automotive</option>
+              <option value="Agriculture">Agriculture</option>
+              <option value="Aerospace & Defense">Aerospace & Defense</option>
+              <option value="Construction">Construction</option>
+              <option value="Consumer Goods">Consumer Goods</option>
+              <option value="Foods & Beverages">Foods & Beverages</option>
+              <option value="ICT & Semiconductor">ICT & Semiconductor</option>
+              <option value="Mining & Metals">Mining & Metals</option>
+              <option value="Manufacturing">Manufacturing</option>
+              <option value="Chemicals">Chemicals</option>
+              <option value="Telecom">Telecom</option>
+            </select>
+          </div>
+          <div class="lead-form-field full">
+            <label for="leadMessage">Tell us more about your market research areas</label>
+            <textarea id="leadMessage" name="message" placeholder="Share your requirements, goals, and any specific market you want us to cover."></textarea>
+          </div>
+        </div>
+
+        <button type="submit" class="lead-submit">Submit Request</button>
+      </form>
+    </div>
+  </div>
+
+  <script>
+    const leadModal = document.getElementById('leadModal');
+    const leadModalTitle = document.getElementById('leadModalTitle');
+    const leadSubject = document.getElementById('leadSubject');
+    const leadRequestType = document.getElementById('leadRequestType');
+    const leadModalClose = document.getElementById('leadModalClose');
+
+    function openLeadModal(reportName, type) {
+      leadModalTitle.textContent = type === 'Free Sample' ? 'Request for Free Sample' : 'Enquiry for ' + reportName;
+      leadSubject.value = `${type} - ${reportName} - Strativa Intelligence`;
+      leadRequestType.value = type;
+      leadModal.classList.add('open');
+      leadModal.setAttribute('aria-hidden', 'false');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeLeadModal() {
+      leadModal.classList.remove('open');
+      leadModal.setAttribute('aria-hidden', 'true');
+      document.body.style.overflow = '';
+    }
+
+    if(leadModalClose) {
+      leadModalClose.addEventListener('click', closeLeadModal);
+    }
+
+    if(leadModal) {
+      leadModal.addEventListener('click', event => {
+        if (event.target === leadModal) {
+          closeLeadModal();
+        }
+      });
+    }
+
+    document.addEventListener('keydown', event => {
+      if (event.key === 'Escape' && leadModal && leadModal.classList.contains('open')) {
+        closeLeadModal();
+      }
+    });
+  </script>
+
+  <!-- CTA -->
+  <section class="section bg-dark text-white text-center">
+    <div class="container">
+      <h2>Need a Custom Research Solution?</h2>
+      <p style="color: #cbd5e1; max-width: 600px; margin: 0 auto 2rem;">We perform customized, bespoke research upon request across all major verticals.</p>
+      <a href="contact.html" class="btn btn-primary">Request Custom Research</a>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <a href="index.html" class="logo">
+            <img src="images/SI logo.svg" alt="Strativa Intelligence" style="height: 48px; width: auto; filter: brightness(0) invert(1);">
+          </a>
+          <p class="mt-2 text-gray">Power your decisions with trusted, data-driven market intelligence and tailored consulting.</p>
+        </div>
+        <div>
+          <h4 class="footer-heading">Company</h4>
+          <ul class="footer-links">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="about.html">About</a></li>
+            <li><a href="services.html">Services</a></li>
+            <li><a href="contact.html">Contact Us</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4 class="footer-heading">Quick Links</h4>
+          <ul class="footer-links">
+            <li><a href="industries.html">Industries</a></li>
+            <li><a href="reports.html">Latest Reports</a></li>
+            <li><a href="blog.html">Blog</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4 class="footer-heading">Contact</h4>
+          <ul class="footer-links">
+            <li class="text-gray">Email: strativa.insights@gmail.com</li>
+            <li class="text-gray">Phone: +91 80070 66042</li>
+            <li class="text-gray">Address: Pune, India</li>
+            <li><a class="footer-social-link" href="https://www.linkedin.com/company/strativa-intelligence/" target="_blank" rel="noopener noreferrer"><svg style="width: 20px;" viewBox="0 0 24 24"><path fill="currentColor" d="M19 3A2 2 0 0 1 21 5V19A2 2 0 0 1 19 21H5A2 2 0 0 1 3 19V5A2 2 0 0 1 5 3H19M8.34 17.34V10.35H6V17.34H8.34M7.17 9.39A1.35 1.35 0 1 0 7.16 6.69A1.35 1.35 0 0 0 7.17 9.39M18 17.34V13.5C18 11.44 16.9 10.48 15.43 10.48C14.24 10.48 13.7 11.14 13.4 11.6V10.35H11.08C11.11 11.18 11.08 17.34 11.08 17.34H13.4V13.43C13.4 13.22 13.41 13.02 13.48 12.88C13.66 12.47 14.06 12.05 14.74 12.05C15.63 12.05 16 12.73 16 13.73V17.34H18Z" /></svg> LinkedIn</a></li>
+            <li><a class="footer-social-link" href="#" target="_blank" rel="noopener noreferrer"><i class="fa-brands fa-facebook" style="width: 20px;"></i> Facebook</a></li>
+            <li><a class="footer-social-link" href="#" target="_blank" rel="noopener noreferrer"><i class="fa-brands fa-instagram" style="width: 20px;"></i> Instagram</a></li>
+            <li><a class="footer-social-link" href="#" target="_blank" rel="noopener noreferrer"><i class="fa-brands fa-whatsapp" style="width: 20px;"></i> WhatsApp</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>&copy; 2026 Strativa Intelligence. All rights reserved.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,15 @@
+RewriteEngine On
+
+# 1. Remove .html extension from the visible URL
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteCond %{REQUEST_FILENAME}\.html -f
+RewriteRule ^(.*)$ $1.html [NC,L]
+
+# 2. Map Clean Industry URLs: /industry/energy -> industry.html?slug=energy
+RewriteRule ^industry/([^/]+)$ industry.html?slug=$1 [QSA,L]
+
+# 3. Map Clean Report URLs: /report/global-market -> report.html?slug=global-market
+RewriteRule ^report/([^/]+)$ report.html?slug=$1 [QSA,L]
+
+# 4. Map Clean Blog URLs: /blog/post-title -> blog-post.html?slug=post-title
+RewriteRule ^blog/([^/]+)$ blog-post.html?slug=$1 [QSA,L]

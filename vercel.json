@@ -1,0 +1,18 @@
+{
+  "cleanUrls": true,
+  "trailingSlash": false,
+  "rewrites": [
+    {
+      "source": "/industry/:slug",
+      "destination": "/industry.html?slug=:slug"
+    },
+    {
+      "source": "/report/:slug",
+      "destination": "/report.html?slug=:slug"
+    },
+    {
+      "source": "/blog/:slug",
+      "destination": "/blog-post.html?slug=:slug"
+    }
+  ]
+}

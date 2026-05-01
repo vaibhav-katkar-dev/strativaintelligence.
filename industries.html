@@ -16,9 +16,275 @@
   <link rel="stylesheet" href="styles.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
   <link rel="icon" href="images/SI logo.svg" type="image/svg+xml">
+  <style>
+    /* Lead Modal Styles from Reports Page */
+    .lead-modal {
+      position: fixed;
+      inset: 0;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      background: rgba(15, 23, 42, 0.62);
+      z-index: 2000;
+      padding: 1rem;
+    }
+
+    .lead-modal.open {
+      display: flex;
+    }
+
+    .lead-modal-dialog {
+      width: min(640px, 100%);
+      max-height: 92vh;
+      overflow-y: auto;
+      background: #ffffff;
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-lg);
+      box-shadow: var(--shadow-lg);
+    }
+
+    .lead-modal-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+      padding: 1rem 1.25rem;
+      border-bottom: 1px solid var(--border-color);
+    }
+
+    .lead-modal-title {
+      margin: 0;
+      font-size: 1.1rem;
+      color: var(--text-dark);
+      font-family: var(--font-display);
+    }
+
+    .lead-close {
+      width: 34px;
+      height: 34px;
+      border: 1px solid var(--border-color);
+      border-radius: 999px;
+      background: #fff;
+      color: var(--text-dark);
+      font-size: 1.15rem;
+      cursor: pointer;
+      line-height: 1;
+      transition: var(--transition);
+    }
+
+    .lead-close:hover {
+      background: #f8fafc;
+      border-color: var(--accent-color);
+      color: var(--accent-color);
+    }
+
+    .lead-form {
+      padding: 1rem 1.25rem 1.25rem;
+      display: grid;
+      gap: 0.9rem;
+    }
+
+    .lead-form-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 0.85rem;
+    }
+
+    .lead-form-field {
+      display: flex;
+      flex-direction: column;
+      gap: 0.35rem;
+    }
+
+    .lead-form-field.full {
+      grid-column: 1 / -1;
+    }
+
+    .lead-form label {
+      font-size: 0.84rem;
+      font-weight: 600;
+      color: var(--text-dark);
+    }
+
+    .lead-form input,
+    .lead-form select,
+    .lead-form textarea {
+      width: 100%;
+      border: 1.5px solid var(--border-color);
+      border-radius: var(--radius-md);
+      padding: 0.68rem 0.8rem;
+      font-size: 0.92rem;
+      color: var(--text-dark);
+      font-family: var(--font-sans);
+      outline: none;
+      transition: var(--transition);
+      background: #fff;
+    }
+
+    .lead-form input:focus,
+    .lead-form select:focus,
+    .lead-form textarea:focus {
+      border-color: var(--accent-color);
+      box-shadow: 0 0 0 3px var(--accent-light);
+    }
+
+    .lead-form textarea {
+      min-height: 96px;
+      resize: vertical;
+    }
+
+    .lead-submit {
+      border: none;
+      border-radius: var(--radius-md);
+      padding: 0.75rem 1rem;
+      background: var(--primary-color);
+      color: #fff;
+      font-weight: 600;
+      cursor: pointer;
+      transition: var(--transition);
+    }
+
+    .lead-submit:hover {
+      background: var(--primary-light);
+    }
+
+    @media (max-width: 640px) {
+      .lead-form-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    /* Industry Card Button styles to match reports page */
+    .btn-sample-report {
+      flex: 1;
+      padding: 0.6rem 1rem;
+      border-radius: var(--radius-md);
+      font-size: 0.85rem;
+      font-weight: 600;
+      text-align: center;
+      cursor: pointer;
+      transition: var(--transition);
+      border: 1.5px solid var(--accent-color);
+      background: transparent;
+      color: var(--accent-color);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-decoration: none;
+    }
+
+    .btn-sample-report:hover {
+      background: var(--accent-color);
+      color: white;
+    }
+
+    .btn-enquiry-report {
+      flex: 1;
+      padding: 0.6rem 1rem;
+      border-radius: var(--radius-md);
+      font-size: 0.85rem;
+      font-weight: 600;
+      text-align: center;
+      cursor: pointer;
+      transition: var(--transition);
+      border: 1.5px solid var(--primary-color);
+      background: var(--primary-color);
+      color: white;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-decoration: none;
+    }
+
+    .btn-enquiry-report:hover {
+      background: var(--primary-light);
+      border-color: var(--primary-light);
+    }
+
+    .industry-card {
+      transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      background: var(--bg-color);
+      text-align: left;
+    }
+
+    .industry-card:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+      border-color: var(--accent-color);
+    }
+
+    .industry-title {
+      position: relative;
+      display: inline-block;
+      width: fit-content;
+      color: var(--text-dark);
+      font-size: 1.25rem;
+      font-weight: 700;
+      margin-bottom: 0.5rem;
+      padding-bottom: 0.25rem;
+      transition: color 0.3s ease;
+    }
+
+    .industry-card:hover .industry-title {
+      color: var(--accent-color);
+    }
+
+    /* Smooth Gradient Underline Effect */
+    .industry-title::after {
+      content: '';
+      position: absolute;
+      left: 0;
+      bottom: 0;
+      width: 0;
+      height: 3px;
+      background: linear-gradient(90deg, var(--accent-color), #60a5fa);
+      transition: width 0.4s ease;
+      border-radius: 4px;
+    }
+
+    .industry-card:hover .industry-title::after {
+      width: 40px;
+    }
+
+    .industry-img-container {
+      overflow: hidden;
+      height: 180px;
+    }
+
+    .industry-img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);
+    }
+
+    .industry-card:hover .industry-img {
+      transform: scale(1.1);
+    }
+  </style>
 </head>
 
 <body class="industries-page">
+
+  <!-- Top Bar -->
+  <div class="top-bar">
+    <div class="container top-bar-container">
+      <div class="top-bar-left">
+        <a href="mailto:strativa.insights@gmail.com"><i class="fa-solid fa-envelope"></i>
+          strativa.insights@gmail.com</a>
+        <a href="tel:+918007066042"><i class="fa-solid fa-phone"></i> +91 80070 66042</a>
+      </div>
+      <div class="top-bar-right">
+        <a href="reports.html">Report Store</a>
+        <a href="services.html">Consulting</a>
+      </div>
+    </div>
+  </div>
 
   <!-- Header & Navigation -->
   <header class="header">
@@ -32,30 +298,30 @@
         </svg>
       </button>
       <nav class="nav-links" id="navLinks">
-        <a href="index.html">Home</a>
-        <a href="about.html">About</a>
+        <a href="/">Home</a>
+        <a href="/about">About</a>
         <div class="nav-item">
-          <a href="industries.html" class="active">Industries ▾</a>
+          <a href="/industries" class="active">Industries ▾</a>
           <div class="dropdown-menu">
-            <a href="industries.html?q=technology">Technology & IT</a>
-            <a href="industries.html?q=healthcare">Healthcare</a>
-            <a href="industries.html?q=energy">Energy & Power</a>
-            <a href="industries.html?q=automotive">Automotive</a>
-            <a href="industries.html?q=agriculture">Agriculture</a>
-            <a href="industries.html?q=aerospace">Aerospace & Defense</a>
-            <a href="industries.html?q=construction">Construction</a>
-            <a href="industries.html?q=consumer">Consumer Goods</a>
-            <a href="industries.html?q=foods">Foods & Beverages</a>
-            <a href="industries.html?q=ict">ICT & Semiconductor</a>
-            <a href="industries.html?q=mining">Mining & Metals</a>
-            <a href="industries.html?q=manufacturing">Manufacturing</a>
-            <a href="industries.html?q=chemicals">Chemicals</a>
-            <a href="industries.html?q=telecom">Telecom</a>
+            <a href="/industry/technology">Technology & IT</a>
+            <a href="/industry/healthcare">Healthcare</a>
+            <a href="/industry/energy">Energy & Power</a>
+            <a href="/industry/automotive">Automotive</a>
+            <a href="/industry/agriculture">Agriculture</a>
+            <a href="/industry/aerospace">Aerospace & Defense</a>
+            <a href="/industry/construction">Construction</a>
+            <a href="/industry/consumer">Consumer Goods</a>
+            <a href="/industry/foods">Foods & Beverages</a>
+            <a href="/industry/ict">ICT & Semiconductor</a>
+            <a href="/industry/mining">Mining & Metals</a>
+            <a href="/industry/manufacturing">Manufacturing</a>
+            <a href="/industry/chemicals">Chemicals</a>
+            <a href="/industry/telecom">Telecom</a>
           </div>
         </div>
-        <a href="reports.html">Latest Reports</a>
-        <a href="services.html">Services</a>
-        <a href="contact.html">Contact</a>
+        <a href="/reports">Latest Reports</a>
+        <a href="/services">Services</a>
+        <a href="/contact">Contact</a>
       </nav>
     </div>
   </header>
@@ -82,82 +348,317 @@
   <section class="section">
     <div class="container">
       <!-- Full List of 14 Industries -->
-      <div class="industry-grid">
+      <div class="industry-grid" style="grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));">
 
-        <a href="reports.html" class="industry-card with-img">
+        <!-- Technology & IT -->
+        <div class="industry-card with-img"
+          style="display: flex; flex-direction: column; background: var(--bg-color); text-align: left;">
           <img src="https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=600&q=80"
-            alt="Technology & IT" class="industry-img">
-          <div class="industry-title"><span>Technology & IT</span><span class="industry-arrow" aria-hidden="true">&rarr;</span></div>
-        </a>
-        <a href="reports.html" class="industry-card with-img">
-          <img src="https://plus.unsplash.com/premium_photo-1673953510197-0950d951c6d9?q=80&w=871&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
-            alt="Healthcare" class="industry-img">
-          <div class="industry-title"><span>Healthcare</span><span class="industry-arrow" aria-hidden="true">&rarr;</span></div>
-        </a>
-        <a href="reports.html" class="industry-card with-img">
+            alt="Technology & IT" class="industry-img" style="height: 180px; object-fit: cover; width: 100%;">
+          <div style="padding: 1.5rem; flex-grow: 1; display: flex; flex-direction: column;">
+            <h3 class="industry-title"
+              style="padding: 0; margin-bottom: 0.5rem; font-size: 1.25rem; justify-content: flex-start;">Technology &
+              IT</h3>
+            <p
+              style="color: var(--text-base); font-size: 0.95rem; margin-bottom: 1.5rem; font-weight: normal; line-height: 1.5;">
+              Discover in-depth analysis and market intelligence for the rapidly evolving tech sector, from software to
+              hardware innovations.</p>
+            <div style="margin-top: auto; display: flex; gap: 0.75rem; flex-wrap: wrap;">
+              <a href="/industry/technology" class="btn btn-outline"
+                style="flex: 1; color: var(--accent-color); border-color: var(--accent-color); padding: 0.6rem; font-size: 0.9rem; text-align: center; justify-content: center;">Read
+                More</a>
+              <button class="btn-sample-report" onclick="openLeadModal('Technology & IT', 'Free Sample')">Free
+                Sample</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Healthcare -->
+        <div class="industry-card with-img"
+          style="display: flex; flex-direction: column; background: var(--bg-color); text-align: left;">
+          <img
+            src="https://plus.unsplash.com/premium_photo-1673953510197-0950d951c6d9?q=80&w=871&auto=format&fit=crop&ixlib=rb-4.1.0"
+            alt="Healthcare" class="industry-img" style="height: 180px; object-fit: cover; width: 100%;">
+          <div style="padding: 1.5rem; flex-grow: 1; display: flex; flex-direction: column;">
+            <h3 class="industry-title"
+              style="padding: 0; margin-bottom: 0.5rem; font-size: 1.25rem; justify-content: flex-start;">Healthcare
+            </h3>
+            <p
+              style="color: var(--text-base); font-size: 0.95rem; margin-bottom: 1.5rem; font-weight: normal; line-height: 1.5;">
+              Explore global healthcare trends, medical devices, biotechnology, and pharmaceutical market growth
+              forecasts.</p>
+            <div style="margin-top: auto; display: flex; gap: 0.75rem; flex-wrap: wrap;">
+              <a href="/industry/healthcare" class="btn btn-outline"
+                style="flex: 1; color: var(--accent-color); border-color: var(--accent-color); padding: 0.6rem; font-size: 0.9rem; text-align: center; justify-content: center;">Read
+                More</a>
+              <button class="btn-sample-report" onclick="openLeadModal('Healthcare', 'Free Sample')">Free
+                Sample</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Energy & Power -->
+        <div class="industry-card with-img"
+          style="display: flex; flex-direction: column; background: var(--bg-color); text-align: left;">
           <img src="https://images.unsplash.com/photo-1466611653911-95081537e5b7?auto=format&fit=crop&w=600&q=80"
-            alt="Energy & Power" class="industry-img">
-          <div class="industry-title"><span>Energy & Power</span><span class="industry-arrow" aria-hidden="true">&rarr;</span></div>
-        </a>
-        <a href="reports.html" class="industry-card with-img">
+            alt="Energy & Power" class="industry-img" style="height: 180px; object-fit: cover; width: 100%;">
+          <div style="padding: 1.5rem; flex-grow: 1; display: flex; flex-direction: column;">
+            <h3 class="industry-title"
+              style="padding: 0; margin-bottom: 0.5rem; font-size: 1.25rem; justify-content: flex-start;">Energy & Power
+            </h3>
+            <p
+              style="color: var(--text-base); font-size: 0.95rem; margin-bottom: 1.5rem; font-weight: normal; line-height: 1.5;">
+              Insights into renewable energy transition, fossil fuels, power grids, and sustainable energy investments.
+            </p>
+            <div style="margin-top: auto; display: flex; gap: 0.75rem; flex-wrap: wrap;">
+              <a href="/industry/energy" class="btn btn-outline"
+                style="flex: 1; color: var(--accent-color); border-color: var(--accent-color); padding: 0.6rem; font-size: 0.9rem; text-align: center; justify-content: center;">Read
+                More</a>
+              <button class="btn-sample-report" onclick="openLeadModal('Energy & Power', 'Free Sample')">Free
+                Sample</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Automotive -->
+        <div class="industry-card with-img"
+          style="display: flex; flex-direction: column; background: var(--bg-color); text-align: left;">
           <img src="https://images.unsplash.com/photo-1492144534655-ae79c964c9d7?auto=format&fit=crop&w=600&q=80"
-            alt="Automotive" class="industry-img">
-          <div class="industry-title"><span>Automotive</span><span class="industry-arrow" aria-hidden="true">&rarr;</span></div>
-        </a>
+            alt="Automotive" class="industry-img" style="height: 180px; object-fit: cover; width: 100%;">
+          <div style="padding: 1.5rem; flex-grow: 1; display: flex; flex-direction: column;">
+            <h3 class="industry-title"
+              style="padding: 0; margin-bottom: 0.5rem; font-size: 1.25rem; justify-content: flex-start;">Automotive
+            </h3>
+            <p
+              style="color: var(--text-base); font-size: 0.95rem; margin-bottom: 1.5rem; font-weight: normal; line-height: 1.5;">
+              Navigate the shift towards electric vehicles, autonomous driving, and modern automotive manufacturing.</p>
+            <div style="margin-top: auto; display: flex; gap: 0.75rem; flex-wrap: wrap;">
+              <a href="/industry/automotive" class="btn btn-outline"
+                style="flex: 1; color: var(--accent-color); border-color: var(--accent-color); padding: 0.6rem; font-size: 0.9rem; text-align: center; justify-content: center;">Read
+                More</a>
+              <button class="btn-sample-report" onclick="openLeadModal('Automotive', 'Free Sample')">Free
+                Sample</button>
+            </div>
+          </div>
+        </div>
 
-        <a href="reports.html" class="industry-card with-img">
+        <!-- Agriculture -->
+        <div class="industry-card with-img"
+          style="display: flex; flex-direction: column; background: var(--bg-color); text-align: left;">
           <img src="https://images.unsplash.com/photo-1625246333195-78d9c38ad449?auto=format&fit=crop&w=600&q=80"
-            alt="Agriculture" class="industry-img">
-          <div class="industry-title"><span>Agriculture</span><span class="industry-arrow" aria-hidden="true">&rarr;</span></div>
-        </a>
-        <a href="reports.html" class="industry-card with-img">
+            alt="Agriculture" class="industry-img" style="height: 180px; object-fit: cover; width: 100%;">
+          <div style="padding: 1.5rem; flex-grow: 1; display: flex; flex-direction: column;">
+            <h3 class="industry-title"
+              style="padding: 0; margin-bottom: 0.5rem; font-size: 1.25rem; justify-content: flex-start;">Agriculture
+            </h3>
+            <p
+              style="color: var(--text-base); font-size: 0.95rem; margin-bottom: 1.5rem; font-weight: normal; line-height: 1.5;">
+              Data-driven reports on smart farming, crop protection, agricultural machinery, and food security.</p>
+            <div style="margin-top: auto; display: flex; gap: 0.75rem; flex-wrap: wrap;">
+              <a href="/industry/agriculture" class="btn btn-outline"
+                style="flex: 1; color: var(--accent-color); border-color: var(--accent-color); padding: 0.6rem; font-size: 0.9rem; text-align: center; justify-content: center;">Read
+                More</a>
+              <button class="btn-sample-report" onclick="openLeadModal('Agriculture', 'Free Sample')">Free
+                Sample</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Aerospace & Defense -->
+        <div class="industry-card with-img"
+          style="display: flex; flex-direction: column; background: var(--bg-color); text-align: left;">
           <img src="https://images.unsplash.com/photo-1517976487492-5750f3195933?auto=format&fit=crop&w=600&q=80"
-            alt="Aerospace & Defense" class="industry-img">
-          <div class="industry-title"><span>Aerospace & Defense</span><span class="industry-arrow" aria-hidden="true">&rarr;</span></div>
-        </a>
-        <a href="reports.html" class="industry-card with-img">
+            alt="Aerospace & Defense" class="industry-img" style="height: 180px; object-fit: cover; width: 100%;">
+          <div style="padding: 1.5rem; flex-grow: 1; display: flex; flex-direction: column;">
+            <h3 class="industry-title"
+              style="padding: 0; margin-bottom: 0.5rem; font-size: 1.25rem; justify-content: flex-start;">Aerospace &
+              Defense</h3>
+            <p
+              style="color: var(--text-base); font-size: 0.95rem; margin-bottom: 1.5rem; font-weight: normal; line-height: 1.5;">
+              Track global defense spending, commercial aviation recovery, and next-generation space technologies.</p>
+            <div style="margin-top: auto; display: flex; gap: 0.75rem; flex-wrap: wrap;">
+              <a href="/industry/aerospace" class="btn btn-outline"
+                style="flex: 1; color: var(--accent-color); border-color: var(--accent-color); padding: 0.6rem; font-size: 0.9rem; text-align: center; justify-content: center;">Read
+                More</a>
+              <button class="btn-sample-report" onclick="openLeadModal('Aerospace & Defense', 'Free Sample')">Free
+                Sample</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Construction -->
+        <div class="industry-card with-img"
+          style="display: flex; flex-direction: column; background: var(--bg-color); text-align: left;">
           <img src="https://images.unsplash.com/photo-1504307651254-35680f356dfd?auto=format&fit=crop&w=600&q=80"
-            alt="Construction" class="industry-img">
-          <div class="industry-title"><span>Construction</span><span class="industry-arrow" aria-hidden="true">&rarr;</span></div>
-        </a>
-        <a href="reports.html" class="industry-card with-img">
+            alt="Construction" class="industry-img" style="height: 180px; object-fit: cover; width: 100%;">
+          <div style="padding: 1.5rem; flex-grow: 1; display: flex; flex-direction: column;">
+            <h3 class="industry-title"
+              style="padding: 0; margin-bottom: 0.5rem; font-size: 1.25rem; justify-content: flex-start;">Construction
+            </h3>
+            <p
+              style="color: var(--text-base); font-size: 0.95rem; margin-bottom: 1.5rem; font-weight: normal; line-height: 1.5;">
+              Market analysis of commercial real estate, smart cities, building materials, and infrastructure projects.
+            </p>
+            <div style="margin-top: auto; display: flex; gap: 0.75rem; flex-wrap: wrap;">
+              <a href="/industry/construction" class="btn btn-outline"
+                style="flex: 1; color: var(--accent-color); border-color: var(--accent-color); padding: 0.6rem; font-size: 0.9rem; text-align: center; justify-content: center;">Read
+                More</a>
+              <button class="btn-sample-report" onclick="openLeadModal('Construction', 'Free Sample')">Free
+                Sample</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Consumer Goods -->
+        <div class="industry-card with-img"
+          style="display: flex; flex-direction: column; background: var(--bg-color); text-align: left;">
           <img src="https://images.unsplash.com/photo-1607082348824-0a96f2a4b9da?auto=format&fit=crop&w=600&q=80"
-            alt="Consumer Goods" class="industry-img">
-          <div class="industry-title"><span>Consumer Goods</span><span class="industry-arrow" aria-hidden="true">&rarr;</span></div>
-        </a>
+            alt="Consumer Goods" class="industry-img" style="height: 180px; object-fit: cover; width: 100%;">
+          <div style="padding: 1.5rem; flex-grow: 1; display: flex; flex-direction: column;">
+            <h3 class="industry-title"
+              style="padding: 0; margin-bottom: 0.5rem; font-size: 1.25rem; justify-content: flex-start;">Consumer Goods
+            </h3>
+            <p
+              style="color: var(--text-base); font-size: 0.95rem; margin-bottom: 1.5rem; font-weight: normal; line-height: 1.5;">
+              Understand consumer behavior, FMCG trends, e-commerce growth, and retail market intelligence.</p>
+            <div style="margin-top: auto; display: flex; gap: 0.75rem; flex-wrap: wrap;">
+              <a href="/industry/consumer" class="btn btn-outline"
+                style="flex: 1; color: var(--accent-color); border-color: var(--accent-color); padding: 0.6rem; font-size: 0.9rem; text-align: center; justify-content: center;">Read
+                More</a>
+              <button class="btn-sample-report" onclick="openLeadModal('Consumer Goods', 'Free Sample')">Free
+                Sample</button>
+            </div>
+          </div>
+        </div>
 
-        <a href="reports.html" class="industry-card with-img">
+        <!-- Foods & Beverages -->
+        <div class="industry-card with-img"
+          style="display: flex; flex-direction: column; background: var(--bg-color); text-align: left;">
           <img src="https://images.unsplash.com/photo-1493770348161-369560ae357d?auto=format&fit=crop&w=600&q=80"
-            alt="Foods & Beverages" class="industry-img">
-          <div class="industry-title"><span>Foods & Beverages</span><span class="industry-arrow" aria-hidden="true">&rarr;</span></div>
-        </a>
-        <a href="reports.html" class="industry-card with-img">
+            alt="Foods & Beverages" class="industry-img" style="height: 180px; object-fit: cover; width: 100%;">
+          <div style="padding: 1.5rem; flex-grow: 1; display: flex; flex-direction: column;">
+            <h3 class="industry-title"
+              style="padding: 0; margin-bottom: 0.5rem; font-size: 1.25rem; justify-content: flex-start;">Foods &
+              Beverages</h3>
+            <p
+              style="color: var(--text-base); font-size: 0.95rem; margin-bottom: 1.5rem; font-weight: normal; line-height: 1.5;">
+              Deep dive into functional foods, beverages, dietary shifts, supply chains, and food processing tech.</p>
+            <div style="margin-top: auto; display: flex; gap: 0.75rem; flex-wrap: wrap;">
+              <a href="/industry/foods" class="btn btn-outline"
+                style="flex: 1; color: var(--accent-color); border-color: var(--accent-color); padding: 0.6rem; font-size: 0.9rem; text-align: center; justify-content: center;">Read
+                More</a>
+              <button class="btn-sample-report" onclick="openLeadModal('Foods & Beverages', 'Free Sample')">Free
+                Sample</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- ICT & Semiconductor -->
+        <div class="industry-card with-img"
+          style="display: flex; flex-direction: column; background: var(--bg-color); text-align: left;">
           <img src="https://images.unsplash.com/photo-1555664424-778a1e5e1b48?auto=format&fit=crop&w=600&q=80"
-            alt="ICT & Semiconductor" class="industry-img">
-          <div class="industry-title"><span>ICT & Semiconductor</span><span class="industry-arrow" aria-hidden="true">&rarr;</span></div>
-        </a>
-        <a href="reports.html" class="industry-card with-img">
+            alt="ICT & Semiconductor" class="industry-img" style="height: 180px; object-fit: cover; width: 100%;">
+          <div style="padding: 1.5rem; flex-grow: 1; display: flex; flex-direction: column;">
+            <h3 class="industry-title"
+              style="padding: 0; margin-bottom: 0.5rem; font-size: 1.25rem; justify-content: flex-start;">ICT &
+              Semiconductor</h3>
+            <p
+              style="color: var(--text-base); font-size: 0.95rem; margin-bottom: 1.5rem; font-weight: normal; line-height: 1.5;">
+              Essential insights into microchips, 5G/6G advancements, IoT ecosystems, and global ICT infrastructure.</p>
+            <div style="margin-top: auto; display: flex; gap: 0.75rem; flex-wrap: wrap;">
+              <a href="/industry/ict" class="btn btn-outline"
+                style="flex: 1; color: var(--accent-color); border-color: var(--accent-color); padding: 0.6rem; font-size: 0.9rem; text-align: center; justify-content: center;">Read
+                More</a>
+              <button class="btn-sample-report" onclick="openLeadModal('ICT & Semiconductor', 'Free Sample')">Free
+                Sample</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Mining & Metals -->
+        <div class="industry-card with-img"
+          style="display: flex; flex-direction: column; background: var(--bg-color); text-align: left;">
           <img src="https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&w=600&q=80"
-            alt="Mining & Metals" class="industry-img">
-          <div class="industry-title"><span>Mining & Metals</span><span class="industry-arrow" aria-hidden="true">&rarr;</span></div>
-        </a>
-        <a href="reports.html" class="industry-card with-img">
+            alt="Mining & Metals" class="industry-img" style="height: 180px; object-fit: cover; width: 100%;">
+          <div style="padding: 1.5rem; flex-grow: 1; display: flex; flex-direction: column;">
+            <h3 class="industry-title"
+              style="padding: 0; margin-bottom: 0.5rem; font-size: 1.25rem; justify-content: flex-start;">Mining &
+              Metals</h3>
+            <p
+              style="color: var(--text-base); font-size: 0.95rem; margin-bottom: 1.5rem; font-weight: normal; line-height: 1.5;">
+              Analyze commodity markets, rare earth minerals, sustainable mining practices, and global metallurgy.</p>
+            <div style="margin-top: auto; display: flex; gap: 0.75rem; flex-wrap: wrap;">
+              <a href="/industry/mining" class="btn btn-outline"
+                style="flex: 1; color: var(--accent-color); border-color: var(--accent-color); padding: 0.6rem; font-size: 0.9rem; text-align: center; justify-content: center;">Read
+                More</a>
+              <button class="btn-sample-report" onclick="openLeadModal('Mining & Metals', 'Free Sample')">Free
+                Sample</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Manufacturing -->
+        <div class="industry-card with-img"
+          style="display: flex; flex-direction: column; background: var(--bg-color); text-align: left;">
           <img src="https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?auto=format&fit=crop&w=600&q=80"
-            alt="Manufacturing" class="industry-img">
-          <div class="industry-title"><span>Manufacturing</span><span class="industry-arrow" aria-hidden="true">&rarr;</span></div>
-        </a>
-        <a href="reports.html" class="industry-card with-img">
+            alt="Manufacturing" class="industry-img" style="height: 180px; object-fit: cover; width: 100%;">
+          <div style="padding: 1.5rem; flex-grow: 1; display: flex; flex-direction: column;">
+            <h3 class="industry-title"
+              style="padding: 0; margin-bottom: 0.5rem; font-size: 1.25rem; justify-content: flex-start;">Manufacturing
+            </h3>
+            <p
+              style="color: var(--text-base); font-size: 0.95rem; margin-bottom: 1.5rem; font-weight: normal; line-height: 1.5;">
+              Trends in Industry 4.0, industrial automation, robotics, and advanced materials manufacturing.</p>
+            <div style="margin-top: auto; display: flex; gap: 0.75rem; flex-wrap: wrap;">
+              <a href="/industry/manufacturing" class="btn btn-outline"
+                style="flex: 1; color: var(--accent-color); border-color: var(--accent-color); padding: 0.6rem; font-size: 0.9rem; text-align: center; justify-content: center;">Read
+                More</a>
+              <button class="btn-sample-report" onclick="openLeadModal('Manufacturing', 'Free Sample')">Free
+                Sample</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Chemicals -->
+        <div class="industry-card with-img"
+          style="display: flex; flex-direction: column; background: var(--bg-color); text-align: left;">
           <img src="https://images.unsplash.com/photo-1532187875462-be93d5e493c5?auto=format&fit=crop&w=600&q=80"
-            alt="Chemicals" class="industry-img">
-          <div class="industry-title"><span>Chemicals</span><span class="industry-arrow" aria-hidden="true">&rarr;</span></div>
-        </a>
-        <a href="reports.html" class="industry-card with-img">
+            alt="Chemicals" class="industry-img" style="height: 180px; object-fit: cover; width: 100%;">
+          <div style="padding: 1.5rem; flex-grow: 1; display: flex; flex-direction: column;">
+            <h3 class="industry-title"
+              style="padding: 0; margin-bottom: 0.5rem; font-size: 1.25rem; justify-content: flex-start;">Chemicals</h3>
+            <p
+              style="color: var(--text-base); font-size: 0.95rem; margin-bottom: 1.5rem; font-weight: normal; line-height: 1.5;">
+              Comprehensive studies on specialty chemicals, petrochemicals, agrochemicals, and green chemistry.</p>
+            <div style="margin-top: auto; display: flex; gap: 0.75rem; flex-wrap: wrap;">
+              <a href="/industry/chemicals" class="btn btn-outline"
+                style="flex: 1; color: var(--accent-color); border-color: var(--accent-color); padding: 0.6rem; font-size: 0.9rem; text-align: center; justify-content: center;">Read
+                More</a>
+              <button class="btn-sample-report" onclick="openLeadModal('Chemicals', 'Free Sample')">Free Sample</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Telecom -->
+        <div class="industry-card with-img"
+          style="display: flex; flex-direction: column; background: var(--bg-color); text-align: left;">
           <img src="https://images.unsplash.com/photo-1518773553398-650c184e0bb3?auto=format&fit=crop&w=600&q=80"
-            alt="Telecom" class="industry-img">
-          <div class="industry-title"><span>Telecom</span><span class="industry-arrow" aria-hidden="true">&rarr;</span></div>
-        </a>
-
-
+            alt="Telecom" class="industry-img" style="height: 180px; object-fit: cover; width: 100%;">
+          <div style="padding: 1.5rem; flex-grow: 1; display: flex; flex-direction: column;">
+            <h3 class="industry-title"
+              style="padding: 0; margin-bottom: 0.5rem; font-size: 1.25rem; justify-content: flex-start;">Telecom</h3>
+            <p
+              style="color: var(--text-base); font-size: 0.95rem; margin-bottom: 1.5rem; font-weight: normal; line-height: 1.5;">
+              Strategic reports on telecommunications networks, broadband expansion, satellite comms, and mobile
+              services.</p>
+            <div style="margin-top: auto; display: flex; gap: 0.75rem; flex-wrap: wrap;">
+              <a href="/industry/telecom" class="btn btn-outline"
+                style="flex: 1; color: var(--accent-color); border-color: var(--accent-color); padding: 0.6rem; font-size: 0.9rem; text-align: center; justify-content: center;">Read
+                More</a>
+              <button class="btn-sample-report" onclick="openLeadModal('Telecom', 'Free Sample')">Free Sample</button>
+            </div>
+          </div>
+        </div>
 
       </div>
     </div>
@@ -174,6 +675,125 @@
   </section>
 
   <!-- Footer -->
+  <!-- Request Form Modal -->
+  <div class="lead-modal" id="leadModal" aria-hidden="true">
+    <div class="lead-modal-dialog" role="dialog" aria-modal="true" aria-labelledby="leadModalTitle">
+      <div class="lead-modal-header">
+        <h3 class="lead-modal-title" id="leadModalTitle">Request for Free Sample</h3>
+        <button type="button" class="lead-close" id="leadModalClose" aria-label="Close form">&times;</button>
+      </div>
+      <form class="lead-form" action="https://api.web3forms.com/submit" method="POST">
+        <input type="hidden" name="access_key" value="f27259e4-e44e-4b95-8a29-ebaaf020531c">
+        <input type="hidden" name="subject" id="leadSubject" value="Request for Free Sample - Strativa Intelligence">
+        <input type="hidden" name="request_type" id="leadRequestType" value="Free Sample">
+
+        <div class="lead-form-grid">
+          <div class="lead-form-field">
+            <label for="leadName">Name</label>
+            <input id="leadName" name="name" type="text" required>
+          </div>
+          <div class="lead-form-field">
+            <label for="leadEmail">Business Email</label>
+            <input id="leadEmail" name="business_email" type="email" required>
+          </div>
+          <div class="lead-form-field">
+            <label for="leadPhone">Contact Number</label>
+            <input id="leadPhone" name="contact_number" type="tel" required>
+          </div>
+          <div class="lead-form-field">
+            <label for="leadDesignation">Designation</label>
+            <input id="leadDesignation" name="designation" type="text" required>
+          </div>
+          <div class="lead-form-field">
+            <label for="leadCompany">Company Name</label>
+            <input id="leadCompany" name="company_name" type="text" required>
+          </div>
+          <div class="lead-form-field">
+            <label for="leadIndustry">Select Industry</label>
+            <select id="leadIndustry" name="industry" required>
+              <option value="" selected disabled>Select industry</option>
+              <option value="Technology & IT">Technology & IT</option>
+              <option value="Healthcare">Healthcare</option>
+              <option value="Energy & Power">Energy & Power</option>
+              <option value="Automotive">Automotive</option>
+              <option value="Agriculture">Agriculture</option>
+              <option value="Aerospace & Defense">Aerospace & Defense</option>
+              <option value="Construction">Construction</option>
+              <option value="Consumer Goods">Consumer Goods</option>
+              <option value="Foods & Beverages">Foods & Beverages</option>
+              <option value="ICT & Semiconductor">ICT & Semiconductor</option>
+              <option value="Mining & Metals">Mining & Metals</option>
+              <option value="Manufacturing">Manufacturing</option>
+              <option value="Chemicals">Chemicals</option>
+              <option value="Telecom">Telecom</option>
+            </select>
+          </div>
+          <div class="lead-form-field full">
+            <label for="leadMessage">Tell us more about your market research areas</label>
+            <textarea id="leadMessage" name="message"
+              placeholder="Share your requirements, goals, and any specific market you want us to cover."></textarea>
+          </div>
+        </div>
+
+        <button type="submit" class="lead-submit">Submit Request</button>
+      </form>
+    </div>
+  </div>
+
+  <script>
+    // Lead Modal Logic
+    const leadModal = document.getElementById('leadModal');
+    const leadModalTitle = document.getElementById('leadModalTitle');
+    const leadSubject = document.getElementById('leadSubject');
+    const leadRequestType = document.getElementById('leadRequestType');
+    const leadModalClose = document.getElementById('leadModalClose');
+
+    function openLeadModal(reportName, type) {
+      leadModalTitle.textContent = type === 'Free Sample' ? 'Request for Free Sample' : 'Enquiry for ' + reportName;
+      leadSubject.value = `${type} - ${reportName} - Strativa Intelligence`;
+      leadRequestType.value = type;
+      leadModal.classList.add('open');
+      leadModal.setAttribute('aria-hidden', 'false');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeLeadModal() {
+      leadModal.classList.remove('open');
+      leadModal.setAttribute('aria-hidden', 'true');
+      document.body.style.overflow = '';
+    }
+
+    if (leadModalClose) leadModalClose.addEventListener('click', closeLeadModal);
+    if (leadModal) leadModal.addEventListener('click', e => { if (e.target === leadModal) closeLeadModal(); });
+    document.addEventListener('keydown', e => { if (e.key === 'Escape' && leadModal && leadModal.classList.contains('open')) closeLeadModal(); });
+
+    // Dynamic Content Loading for Industry Cards
+    document.addEventListener('DOMContentLoaded', () => {
+      fetch('https://sheetdb.io/api/v1/u90teyzi1mge7')
+        .then(res => res.json())
+        .then(data => {
+          if (!data || data.length === 0) return;
+
+          data.forEach(item => {
+            const slug = item.slug;
+            const desc = item.short_description || item.meta_description;
+            if (slug && desc) {
+              // Find the card by searching for the link that contains the slug
+              const cardLink = document.querySelector(`.industry-grid a[href*="slug=${slug}"]`);
+              if (cardLink) {
+                const card = cardLink.closest('.industry-card');
+                if (card) {
+                  const p = card.querySelector('p');
+                  if (p) p.textContent = desc;
+                }
+              }
+            }
+          });
+        })
+        .catch(err => console.warn('Could not fetch dynamic industry descriptions:', err));
+    });
+  </script>
+
   <footer class="footer">
     <div class="container">
       <div class="footer-grid">
@@ -208,10 +828,17 @@
             <li class="text-gray">Email: strativa.insights@gmail.com</li>
             <li class="text-gray">Phone: +91 80070 66042</li>
             <li class="text-gray">Address: Pune, India</li>
-            <li><a class="footer-social-link" href="https://www.linkedin.com/company/strativa-intelligence/" target="_blank" rel="noopener noreferrer"><svg style="width: 20px;" viewBox="0 0 24 24"><path fill="currentColor" d="M19 3A2 2 0 0 1 21 5V19A2 2 0 0 1 19 21H5A2 2 0 0 1 3 19V5A2 2 0 0 1 5 3H19M8.34 17.34V10.35H6V17.34H8.34M7.17 9.39A1.35 1.35 0 1 0 7.16 6.69A1.35 1.35 0 0 0 7.17 9.39M18 17.34V13.5C18 11.44 16.9 10.48 15.43 10.48C14.24 10.48 13.7 11.14 13.4 11.6V10.35H11.08C11.11 11.18 11.08 17.34 11.08 17.34H13.4V13.43C13.4 13.22 13.41 13.02 13.48 12.88C13.66 12.47 14.06 12.05 14.74 12.05C15.63 12.05 16 12.73 16 13.73V17.34H18Z" /></svg> LinkedIn</a></li>
-            <li><a class="footer-social-link" href="#" target="_blank" rel="noopener noreferrer"><i class="fa-brands fa-facebook" style="width: 20px;"></i> Facebook</a></li>
-            <li><a class="footer-social-link" href="#" target="_blank" rel="noopener noreferrer"><i class="fa-brands fa-instagram" style="width: 20px;"></i> Instagram</a></li>
-            <li><a class="footer-social-link" href="#" target="_blank" rel="noopener noreferrer"><i class="fa-brands fa-whatsapp" style="width: 20px;"></i> WhatsApp</a></li>
+            <li><a class="footer-social-link" href="https://www.linkedin.com/company/strativa-intelligence/"
+                target="_blank" rel="noopener noreferrer"><svg style="width: 20px;" viewBox="0 0 24 24">
+                  <path fill="currentColor"
+                    d="M19 3A2 2 0 0 1 21 5V19A2 2 0 0 1 19 21H5A2 2 0 0 1 3 19V5A2 2 0 0 1 5 3H19M8.34 17.34V10.35H6V17.34H8.34M7.17 9.39A1.35 1.35 0 1 0 7.16 6.69A1.35 1.35 0 0 0 7.17 9.39M18 17.34V13.5C18 11.44 16.9 10.48 15.43 10.48C14.24 10.48 13.7 11.14 13.4 11.6V10.35H11.08C11.11 11.18 11.08 17.34 11.08 17.34H13.4V13.43C13.4 13.22 13.41 13.02 13.48 12.88C13.66 12.47 14.06 12.05 14.74 12.05C15.63 12.05 16 12.73 16 13.73V17.34H18Z" />
+                </svg> LinkedIn</a></li>
+            <li><a class="footer-social-link" href="#" target="_blank" rel="noopener noreferrer"><i
+                  class="fa-brands fa-facebook" style="width: 20px;"></i> Facebook</a></li>
+            <li><a class="footer-social-link" href="#" target="_blank" rel="noopener noreferrer"><i
+                  class="fa-brands fa-instagram" style="width: 20px;"></i> Instagram</a></li>
+            <li><a class="footer-social-link" href="#" target="_blank" rel="noopener noreferrer"><i
+                  class="fa-brands fa-whatsapp" style="width: 20px;"></i> WhatsApp</a></li>
           </ul>
         </div>
       </div>
