@@ -4,15 +4,15 @@
   "rewrites": [
     {
       "source": "/industry/:slug",
-      "destination": "/industry.html?slug=:slug"
+      "destination": "/industry?slug=:slug"
     },
     {
       "source": "/report/:slug",
-      "destination": "/report.html?slug=:slug"
+      "destination": "/report?slug=:slug"
     },
     {
       "source": "/blog/:slug",
-      "destination": "/blog-post.html?slug=:slug"
+      "destination": "/blog-post?slug=:slug"
     }
   ]
 }
